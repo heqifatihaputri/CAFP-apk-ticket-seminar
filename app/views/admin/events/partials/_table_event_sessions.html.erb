@@ -1,0 +1,35 @@
+<div align="right">
+  <%= link_to new_admin_event_event_session_path(@event), class: 'btn btn-success mb-4' do %>
+    <i class='zmdi zmdi-plus-circle'></i>
+    New Event Session
+  <% end %>
+</div>
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th scope="col">No</th>
+      <th scope="col">Title</th>
+      <th scope="col">Status</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% event_sessions.each_with_index do |event_session, idx| %>
+      <tr>
+        <th scope="row"><%= idx+1 %></th>
+        <td><%= event_session.title %></td>
+        <td><%= event_session.status.titleize %></td>
+        <td>
+          <%= link_to edit_admin_event_event_session_path(@event, event_session), class: 'btn btn-info' do %>
+              <i class='zmdi zmdi-edit'></i>
+              Edit
+          <% end %>
+          <%= link_to "Delete", admin_event_event_session_path(@event, event_session), method: :delete,
+              data: { method: :delete, confirm: 'Are you sure?' },
+              class: "btn btn-danger ml-3" %>
+          <%= link_to "Attendances", all_ticket_sessions_admin_event_event_session_path(@event, event_session), class: 'btn btn-warning' %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

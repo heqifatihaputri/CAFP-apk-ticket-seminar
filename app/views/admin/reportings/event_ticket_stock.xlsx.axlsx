@@ -1,0 +1,30 @@
+wb = xlsx_package.workbook
+wb.add_worksheet(name: @export_name) do |sheet|
+
+  sheet.add_row [
+                  "Event Name", "Description", "Date", "Speaker", "Venue", "Publish Date", "Ticket Details"
+                ]
+  @data.each do |event|
+    stocks = ""
+    event.ticket_stocks.each do |ticket|
+      stocks += "\n#{ticket.name}(#{ticket.sku})\n"
+      stocks += "Available Stock: #{ticket.quantity}\n"
+      stocks += "Ticket Sold: #{ticket.sold_quantity}\n"
+      stocks += "Total Stock: #{ticket.total_stock}\n"
+    end
+
+    row_value = [
+                  event.name,
+                  event.description.html_safe,
+                  event.date_period,
+                  event.speaker,
+                  event.venue&.name,
+                  date_formater(event.published_date, '%d/%m/%Y %I:%M %p'),
+                  stocks
+                ]
+    types = []
+    row_value.count.times { types << :string }
+
+    sheet.add_row row_value, types: types
+  end
+end

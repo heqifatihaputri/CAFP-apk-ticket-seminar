@@ -1,0 +1,12 @@
+<%= render 'layouts/shared/breadcrumb' %>
+<section class="section">
+  <div class="row">
+    <div class="col-lg-12">
+      <div class="card">
+        <div class="card-body" id="cart-table">
+          <%= render partial: 'user/carts/partials/cart_table', locals: { cart_item: @cart_item, cart_items: @cart_items } %>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

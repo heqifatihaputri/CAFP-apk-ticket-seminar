@@ -1,0 +1,67 @@
+<%= render 'layouts/shared/breadcrumb' %>
+<section class="section profile">
+  <div class="row">
+    <div class="col-xl-12">
+      <div class="card">
+        <div class="card-body pt-3">
+          <!-- Bordered Tabs -->
+          <ul class="nav nav-tabs nav-tabs-bordered">
+            <li class="nav-item">
+              <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#profile-overview">Overview</button>
+            </li>
+          </ul>
+          <div class="tab-content pt-2">
+            <div class="tab-pane fade show active profile-overview" id="profile-overview">
+              <h5 class="card-title">Stock Details</h5>
+              <div align="right">
+                <%= link_to edit_admin_event_ticket_stock_path(@ticket_stock), class: 'btn btn-info' do %>
+                  <i class='zmdi zmdi-edit'></i>
+                  Edit
+                <% end %>
+              </div>
+              <div class="row">
+                <div class="col-lg-3 col-md-4 label">Ticket Name</div>
+                <div class="col-lg-9 col-md-8"><%= @ticket_stock.name %></div>
+              </div>
+              <div class="row">
+                <div class="col-lg-3 col-md-4 label">SKU</div>
+                <div class="col-lg-9 col-md-8"><%= @ticket_stock.sku %></div>
+              </div>
+              <div class="row">
+                <div class="col-lg-3 col-md-4 label ">Description</div>
+                <div class="col-lg-9 col-md-8"><%= @ticket_stock.description %></div>
+              </div>
+              <div class="row">
+                <div class="col-lg-3 col-md-4 label">Price</div>
+                <div class="col-lg-9 col-md-8"><%= money_format(@ticket_stock.price) %></div>
+              </div>
+              <div class="row">
+                <div class="col-lg-3 col-md-4 label">Available Stock</div>
+                <div class="col-lg-9 col-md-8"><%= @ticket_stock.quantity %></div>
+              </div>
+              <div class="row">
+                <div class="col-lg-3 col-md-4 label">Ticket Sold</div>
+                <div class="col-lg-9 col-md-8"><%= @ticket_stock.sold_quantity %></div>
+              </div>
+              <div class="row">
+                <div class="col-lg-3 col-md-4 label">Total Stock</div>
+                <div class="col-lg-9 col-md-8"><%= @ticket_stock.total_stock %></div>
+              </div>
+              <div class="row">
+                <div class="col-lg-3 col-md-4 label">Started Sale</div>
+                <div class="col-lg-9 col-md-8"><%= date_formater(@ticket_stock.start_sale, '%d/%m/%Y %I:%M %p') %></div>
+              </div>
+              <div class="row">
+                <div class="col-lg-3 col-md-4 label">End Sale</div>
+                <div class="col-lg-9 col-md-8"><%= date_formater(@ticket_stock.end_sale, '%d/%m/%Y %I:%M %p') %></div>
+              </div>
+            </div>
+          </div>
+          <div class="card-footer" align="left">
+            <%= link_to "Back", admin_event_path(@event, tab: 'ticket-stock'), class: "btn btn-outline-primary me-2" %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

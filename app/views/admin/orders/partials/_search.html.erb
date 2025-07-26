@@ -1,0 +1,33 @@
+<div class="card main-card">
+  <%= search_form_for @q, url: admin_orders_path, html: { method: :get } do |f| %>
+    <div class="card-body">
+    <h4 class="card-title">Advanced Search</h4>
+    <section class="p-0">
+      <div class="collapse show" id="advanceSearch">
+        <div class="row">
+          <div class="col-lg-3 col-12 mb-2">
+            <div id="hidden-search-daterange" data-value="<%= params[:date_range] %>"></div>
+            <%= label_tag :date_range, 'Payment Date' %>
+            <%= text_field_tag :date_range, params[:date_range], class: 'form-control daterange', id: 'input-search-date-range', autocomplete: :off, placeholder: 'dd/mm/yy - dd/mm/yy' %>
+          </div>
+          <div class="col-lg-3 col-12 mb-2">
+            <%= f.label :order_uid_cont, 'Order ID' %>
+            <%= f.search_field :order_uid_cont, class: 'form-control' %>
+          </div>
+          <div class="col-lg-3 col-12 mb-2">
+            <%= f.label :invoice_invoice_uid_cont, 'Invoice ID' %>
+            <%= f.search_field :invoice_invoice_uid_cont, class: 'form-control' %>
+          </div>
+          <div class="col-lg-3 col-12 mb-2">
+            <%= f.label :user_user_profile_full_name_cont, 'Recipient Name' %>
+            <%= f.search_field :user_user_profile_full_name_cont, class: 'form-control' %>
+          </div>
+        </div>
+    </section>
+    </div>
+    <div class="card-footer default">
+      <%= f.submit class: 'btn btn-primary' %>
+      <a class="btn btn-outline-primary mr-2" href="/admin/orders">Reset</a>
+    </div>
+  <% end %>
+</div>

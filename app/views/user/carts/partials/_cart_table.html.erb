@@ -1,0 +1,43 @@
+<h5 class="card-title">Your Cart</h5>
+<%= form_with(model: cart_items, url: update_quantity_user_carts_path, method: :post, local: true) do |form| %>
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th scope="col">Ticket</th>
+        <th scope="col">Price</th>
+        <th scope="col">Quantity</th>
+        <th scope="col">Item Total</th>
+        <th scope="col">Action</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <% cart_items.each_with_index do |item, idx| %>
+        <%= form.hidden_field :cart_item_id, value: item.id, name: "cart_item[id][#{idx}]" %>
+        <% ticket_stock = item.ticket_stock %>
+        <tr>
+          <td>
+            <span style="font-weight: bold;color: #4154f1;"><%= event_name(item) %></span>
+            <p><small><%= ticket_name(item) %></small></p>
+          </td>
+          <td>
+            <%= number_to_currency(ticket_stock.price, unit: 'Rp ') %>
+          </td>
+          <td>
+            <%= form.number_field :quantity, min: 1, max: ticket_stock.quantity, value: item.quantity, class: 'form-control w-26 input-quantity', id: 'example-number-input3', name: "cart_item[quantity][#{idx}]", data: {id: idx} %>
+          </td>
+          <td>
+            <span id="item-total-<%= idx %>">
+            <%= number_to_currency(ticket_stock.price * item.quantity, unit: 'Rp ') %>
+          </td>
+          <td>
+            <%= link_to "Delete", user_cart_item_path(item), method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger" %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+  <% if cart_items.present? %>
+    <%= form.submit 'Checkout', class: "btn btn-primary align-self-end" %>
+  <% end %>
+<%  end %>

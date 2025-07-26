@@ -1,0 +1,21 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  total: 9.99
+  phone_number: MyString
+  recepient_name: MyString
+  payment_method: MyString
+  status: 1
+  remark: MyString
+  use_balance: false
+  use_balance_amount: 9.99
+
+two:
+  total: 9.99
+  phone_number: MyString
+  recepient_name: MyString
+  payment_method: MyString
+  status: 1
+  remark: MyString
+  use_balance: false
+  use_balance_amount: 9.99

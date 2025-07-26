@@ -1,0 +1,40 @@
+<%= form_with(model: event_session, url: url, local: true) do |form| %>
+  <%= render partial: 'layouts/shared/error_messages', locals: { resource: event_session } %>
+  <div class="row mb-3">
+    <%= form.label :event_id, 'Event Name', class: "col-sm-2 col-form-label" %>
+    <div class="col-sm-10">
+      <%= text_field_tag :event_name, event.name, class: 'form-control', disabled: true %>
+      <%= form.hidden_field :event_id, value: event.id, class: 'form-control' %>
+    </div>
+  </div>
+  <div class="row mb-3">
+    <%= form.label :title, 'Title<span class="text-danger">*</span>'.html_safe, class: "col-sm-2 col-form-label" %>
+    <div class="col-sm-10">
+      <%= form.text_field :title, class: 'form-control', required: true %>
+    </div>
+  </div>
+  <fieldset class="row mb-3">
+    
+    <legend class="col-form-label col-sm-2 pt-0">
+      <label>Status <span class="text-danger">*</span></label>
+    </legend>
+    <div class="col-sm-10">
+      <div class="form-check">
+        <%= form.radio_button :status, :not_started, checked: event_session.not_started?, class: "form-check-input", id: "not_stated", required: true %>
+        <%= form.label :status, "Session Not Started", class: "form-check-label", for: "not_stated" %>
+      </div>
+      <div class="form-check">
+        <%= form.radio_button :status, :started, checked: event_session.started?, class: "form-check-input", id: "started", required: true %>
+        <%= form.label :status, "Session Started", class: "form-check-label", for: "started" %>
+      </div>
+      <div class="form-check">
+        <%= form.radio_button :status, :ended, checked: event_session.ended?, class: "form-check-input", id: "ended", required: true %>
+        <%= form.label :status, "Session Ended", class: "form-check-label", for: "ended" %>
+      </div>
+    </div>
+  </fieldset>
+  <div class="card-footer text-right">
+    <%= form.submit "Submit", class: 'btn btn-success', id: 'button-form-event' %>
+    <%= link_to "Back", admin_event_path(event, tab: 'event-session'), class: 'btn btn-outline-primary me-2' %>
+  </div>
+<% end %>

@@ -1,0 +1,109 @@
+<%= form_with(model: stock, url: url, local: true) do |form| %>
+  <%= render partial: 'layouts/shared/error_messages', locals: { resource: event } %>
+  <div class="row mb-3">
+    <%= form.label :name, 'Ticket Name<span class="text-danger">*</span>'.html_safe, class: "col-sm-2 col-form-label" %>
+    <div class="col-sm-10">
+      <%= form.text_field :name, class: 'form-control', required: true %>
+    </div>
+  </div>
+  <div class="row mb-3">
+    <%= form.label :description, 'Description <span class="text-danger">*</span>'.html_safe, class: "col-sm-2 col-form-label" %>
+    <div class="col-sm-10">
+      <%= form.text_area :description, class: 'form-control', required: true, style: "height: 100px;" %>
+    </div>
+  </div>
+  <div class="row mb-3">
+    <%= form.label :sku, 'SKU<span class="text-danger">*</span>'.html_safe, class: "col-sm-2 col-form-label" %>
+    <div class="col-sm-10">
+      <%= form.text_field :sku, class: 'form-control', required: true %>
+    </div>
+  </div>
+  <div class="row mb-3">
+    <%= form.label :event_id, 'Event<span class="text-danger">*</span>'.html_safe, class: "col-sm-2 col-form-label" %>
+    <div class="col-sm-10">
+      <%= text_field_tag :event_name, event.name, class: 'form-control', disabled: true %>
+      <%= form.hidden_field :event_id, value: event.id, class: 'form-control' %>
+    </div>
+  </div>
+  <fieldset class="row mb-3">
+    <legend class="col-form-label col-sm-2 pt-0"></legend>
+    <div class="col-sm-10">
+      <div class="form-check">
+        <%= form.radio_button :go_live, true, checked: stock.go_live, class: "form-check-input", id: "go_live_true", required: true %>
+        <%= form.label :go_live, "Show the product and allow to purchase", class: "form-check-label", for: "go_live_true" %>
+      </div>
+      <div class="form-check">
+        <%= form.radio_button :go_live, false, checked: !stock.go_live, class: "form-check-input", id: "go_live_false", required: true %>
+        <%= form.label :go_live, "Take down the product", class: "form-check-label", for: "go_live_false" %>
+      </div>
+    </div>
+  </fieldset>
+  <% if stock.new_record? %>
+    <div class="row mb-3">
+      <%= form.label :quantity, 'Quantity<span class="text-danger">*</span>'.html_safe, class: "col-sm-2 col-form-label" %>
+      <div class="col-sm-10">
+        <%= form.number_field :quantity, class: 'form-control', min: 0, required: true %>
+      </div>
+    </div>
+  <% else %>
+    <div class="row mb-3">
+      <%= label_tag :total_stock, 'Total Stock<span class="text-danger">*</span>'.html_safe, class: "col-sm-2 col-form-label" %>
+      <div class="col-sm-10">
+        <%= text_field_tag :total_stock, stock.total_stock, class: 'form-control', disabled: true %>
+      </div>
+    </div>
+    <div class="row mb-3">
+      <%= form.label :quantity, 'Available Stock<span class="text-danger">*</span>'.html_safe, class: "col-sm-2 col-form-label" %>
+      <div class="col-sm-10">
+        <%= form.number_field :quantity, class: 'form-control', min: 0, disabled: true %>
+        <a href="javascript:void(0)" id="btn-plus-qty" class="btn btn-primary mt-2" style="font-size: 12px;">+ qty</a>
+        <a href="javascript:void(0)" id="btn-minus-qty" class="btn btn-primary mt-2 me-2" style="font-size: 12px;">- qty</a>
+      </div>
+    </div>
+    <div class="row mb-3" id="plus-form" style="display: none;">
+      <%= label_tag :plus_qty, '', class: "col-sm-2 col-form-label" %>
+      <div class="col-sm-3">
+        <div class="d-flex">
+          <span class="col-sm-3 mt-2">+ Plus</span>
+          <div>
+            <%= number_field_tag :plus_qty, nil, class: 'form-control', id: 'input-plus-qty', min: 0 %>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row mb-3" id="minus-form" style="display: none;">
+      <%= label_tag :minus_qty, '', class: "col-sm-2 col-form-label" %>
+      <div class="col-sm-3">
+        <div class="d-flex">
+          <span class="col-sm-3 mt-2">- Minus</span>
+          <div>
+            <%= number_field_tag :minus_qty, nil, class: 'form-control', id: 'input-minus-qty', max: stock.quantity %>
+          </div>
+        </div>
+      </div>
+    </div>
+  <% end %>
+  <div class="row mb-3">
+    <%= form.label :price, 'Price<span class="text-danger">*</span>'.html_safe, class: "col-sm-2 col-form-label" %>
+    <div class="col-sm-10">
+      <%= form.number_field :price, class: 'form-control', min: 0, required: true %>
+    </div>
+  </div>
+  <div class="row mb-3">
+    <%= form.label :start_sale, 'Start Sale<span class="text-danger">*</span>'.html_safe, class: "col-sm-2 col-form-label" %>
+    <div class="col-sm-3">
+      <%= form.datetime_field :start_sale, class: 'form-control', placeholder: 'dd/mm/yyyy hh:mm pm/am', autocomplete: :off, required: true %>
+    </div>
+  </div>
+  <div class="row mb-3">
+    <%= form.label :end_sale, 'End Sale<span class="text-danger">*</span>'.html_safe, class: "col-sm-2 col-form-label" %>
+    <div class="col-sm-3">
+      <%= form.datetime_field :end_sale, class: 'form-control', placeholder: 'dd/mm/yyyy hh:mm pm/am', autocomplete: :off, required: true %>
+    </div>
+  </div>
+
+  <div class="card-footer text-right">
+    <%= form.submit "Submit", class: 'btn btn-success', id: 'button-form-event' %>
+    <%= link_to "Back", admin_event_path(event, tab: "ticket-stock"), class: 'btn btn-outline-primary me-2' %>
+  </div>
+<% end %>

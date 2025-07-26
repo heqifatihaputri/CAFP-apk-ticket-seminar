@@ -1,0 +1,103 @@
+<%= render 'layouts/shared/breadcrumb' %>
+<section class="section profile">
+  <div class="row">
+    <div class="col-xl-12">
+      <div class="card">
+        <div class="card-body profile-card pt-4 d-flex flex-column align-items-center">
+          <!-- <img src="assets/img/profile-img.jpg" alt="Profile" class="rounded-circle"> -->
+        </div>
+        <div class="card-body profile-card pt-4 d-flex flex-column">
+          <div class="tab-content pt-2">
+            <div class="tab-pane fade show active profile-overview">
+              <!-- <h5 class="card-title" style="font-size: 24px!important;"><%#= @event.name %></h5> -->
+              <div class="row">
+                <div class="col-lg-3 col-md-4 label ">Event Name</div>
+                <div class="col-lg-9 col-md-8"><%= @event.name %></div>
+              </div>
+              <div class="row">
+                <div class="col-lg-3 col-md-4 label">Ticket Name</div>
+                <div class="col-lg-9 col-md-8"><%= @ticket_stock.name %></div>
+              </div>
+              <div class="row">
+                <div class="col-lg-3 col-md-4 label">SKU</div>
+                <div class="col-lg-9 col-md-8"><%= @ticket_stock.sku %></div>
+              </div>
+              <div class="row">
+                <div class="col-lg-3 col-md-4 label">Description</div>
+                <div class="col-lg-9 col-md-8"><%= @ticket_stock.description.html_safe %></div>
+              </div>
+              <div class="row">
+                <div class="col-lg-3 col-md-4 label">Date & Time</div>
+                <div class="col-lg-9 col-md-8"><%= @event.date_period %></div>
+              </div>
+              <div class="row">
+                <div class="col-lg-3 col-md-4 label">Speaker</div>
+                <div class="col-lg-9 col-md-8"><%= @event.speaker %></div>
+              </div>
+              <div class="row">
+                <div class="col-lg-3 col-md-4 label">Venue</div>
+                <div class="col-lg-9 col-md-8"><%= @venue.name %></div>
+              </div>
+              <div class="row">
+                <div class="col-lg-3 col-md-4 label">Address</div>
+                <div class="col-lg-9 col-md-8"><%= @venue.full_address %></div>
+              </div>
+              <div class="row">
+                <div class="col-lg-3 col-md-4 label">Quantity</div>
+                <div class="col-lg-9 col-md-8"><%= @tickets.count %></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-xl-12">
+      <div class="card">
+        <div class="card-body pt-3">
+          <div class="tab-content pt-2">
+            <div class="tab-pane fade show active profile-overview">
+              <h5 class="card-title" style="font-size: 24px!important;">Tickets</h5>
+              <table class="table table-striped">
+                <thead>
+                  <tr>
+                    <th scope="col">No</th>
+                    <th scope="col">Link</th>
+                    <th scope="col">Attendee Name</th>
+                    <th scope="col">Remark</th>
+                    <th scope="col" width="20%">Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <% @tickets.each_with_index do |ticket, idx| %>
+                    <tr>
+                      <th scope="row"><%= idx+1 %></th>
+                      <td>
+                        <% link_ticket = link_user_ticket_path(ticket, ticket.link_token) %>
+                        <%= link_to "Ticket-#{ticket.id}", link_ticket, target: '_blank' %>
+                        <br>
+                        <% link_stream = seo_meta_tag_url(link_ticket) %>
+                        <%= copy_link_ticket(ticket.id, link_stream) %>
+                      </td>
+                      <td><%= ticket.attendee_name %></td>
+                      <td><%= ticket.remark %></td>
+                      <td>
+                        <%= link_to 'Edit', edit_remark_user_ticket_path(ticket), remote: true, class: "btn btn-primary" %>
+                        <% if ticket.allow_print_certificate? %>
+                          <%= link_to "Print Certificate", ticket_certification_index_path(ticket),
+                            class: 'btn btn-info text-white', target: "_blank" %>
+                        <% end  %>
+                      </td>
+                    </tr>
+                  <% end %>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div id="modals"></div>

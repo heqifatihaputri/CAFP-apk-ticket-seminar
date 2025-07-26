@@ -1,0 +1,27 @@
+<div class="modal fade" id="<%= modal_id %>" tabindex="-1" role="dialog" aria-labelledby="Top Up E-Wallet" style="display: none;" aria-hidden="true">
+   <div class="modal-dialog" role="document">
+      <%= form_tag create_balance_in_admin_balance_path(balance), method: :post do %>
+        <%= hidden_field_tag :id, balance.id %>
+        <div class="modal-content rounded">
+          <div class="modal-header">
+             <h5 class="modal-title">E-Wallet Top Up</h5>
+          </div>
+           <div class="modal-body">
+            <h6>Current Amount : <%= number_to_currency(balance.current_mutation, unit: 'RM ') %></h6>
+            <div class="row px-2">
+              <div class="col-md-12">
+                <div class="form-group">
+                  <%= label_tag :amount, 'Amount<strong class="text-danger">*</strong>'.html_safe %>
+                      <%= text_field_tag :amount, nil, class: "form-control", placeholder: "Enter amount", type: "number", required: true, min: 1 %>
+                </div>
+              </div>
+            </div>
+           </div>
+           <div class="modal-footer">
+             <button class="btn btn-outline-primary rounded" data-dismiss="modal" aria-label="Close" type="button">Close</button>
+             <button class="btn btn-primary rounded" data-confirm="Are you sure?">Top Up</button>
+           </div>
+        </div>
+      <% end %>
+   </div>
+</div>

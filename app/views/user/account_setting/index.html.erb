@@ -1,0 +1,38 @@
+<%= render 'layouts/shared/breadcrumb' %>
+<section class="section">
+  <div class="row">
+    <div class="col-lg-12">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">Change Password</h5>
+          <%= form_with(model: current_user, url: user_account_setting_path(current_user),
+              method: :put, local: true) do |form| %>
+            <%= render partial: 'layouts/shared/error_messages', locals: { resource: current_user } %>
+
+            <div class="row mb-3">
+              <%= form.label :current_password, 'Current Password <span class="text-danger">*</span>'.html_safe, class: "col-sm-2 col-form-label" %>
+              <div class="col-sm-10">
+                <%= form.password_field :current_password, autocomplete: "current-password", class: 'form-control', required: true %>
+              </div>
+            </div>
+            <div class="row mb-3">
+              <%= form.label :password, 'New Password <span class="text-danger">*</span>'.html_safe, class: "col-sm-2 col-form-label" %>
+              <div class="col-sm-10">
+                <%= form.password_field :password, autocomplete: "new-password", class: 'form-control', required: true %>
+              </div>
+            </div>
+            <div class="row mb-3">
+              <%= form.label :password_confirmation, 'Password Confirmation <span class="text-danger">*</span>'.html_safe, class: "col-sm-2 col-form-label" %>
+              <div class="col-sm-10">
+                <%= form.password_field :password_confirmation, autocomplete: "new-password", class: 'form-control', required: true %>
+              </div>
+            </div>
+            <div class="card-footer text-right">
+              <%= form.submit "Submit", class: 'btn btn-success', id: 'button-submit' %>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

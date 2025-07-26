@@ -1,0 +1,36 @@
+<div class="card main-card">
+  <%= search_form_for @q, url: admin_users_path, html: { method: :get } do |f| %>
+    <div class="card-body">
+    <h4 class="card-title">Advanced Search</h4>
+    <section class="p-0">
+      <div class="collapse show" id="advanceSearch">
+        <div class="row">
+          <div class="col-lg-4 col-12 mb-2">
+            <%= f.label :email_cont, 'Email' %>
+            <%= f.search_field :email_cont, class: 'form-control' %>
+          </div>
+          <div class="col-lg-4 col-12 mb-2">
+            <%= f.label :user_profile_user_uid_cont, 'User UID' %>
+            <%= f.search_field :user_profile_user_uid_cont, class: 'form-control' %>
+          </div>
+          <div class="col-lg-4 col-12 mb-2">
+            <%= f.label :user_profile_full_name_cont, 'Full Name' %>
+            <%= f.search_field :user_profile_full_name_cont, class: 'form-control' %>
+          </div>
+          <div class="col-lg-4 col-12 mb-2">
+            <%= f.label :user_profile_company_cont, 'Company / Community' %>
+            <%= f.search_field :user_profile_company_cont, class: 'form-control' %>
+          </div>
+          <div class="col-lg-4 col-12 mb-2">
+            <%= f.label :user_profile_gender_eq, 'Gender' %>
+            <%= f.select :user_profile_gender_eq, options_for_select(@genders, params[:q][:user_profile_gender_eq]), { include_blank: 'Select Gender' }, class: "form-control" %>
+          </div>
+        </div>
+    </section>
+    </div>
+    <div class="card-footer default">
+      <%= f.submit class: 'btn btn-primary' %>
+      <a class="btn btn-outline-primary mr-2" href="/admin/users">Reset</a>
+    </div>
+  <% end %>
+</div>

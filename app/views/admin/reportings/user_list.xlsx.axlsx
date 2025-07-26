@@ -1,0 +1,40 @@
+wb = xlsx_package.workbook
+wb.add_worksheet(name: @export_name) do |sheet|
+
+  sheet.add_row [
+                  "User UID", "Email", "Full Name", "NRIC", "Date of Birth", "Gender", "Marital Statsu",
+                  "Company", "Job", "Mobile Number", "Home Number", "Facebook", "Instagram", "Linkedin",
+                  "Full Address", "Country", "Nationality", "State", "City", "Postcode", "Registered At"
+                ]
+  @data.each do |user|
+    profile = user&.user_profile
+    country = profile.country
+
+    row_value = [
+                  profile.user_uid,
+                  user.email,
+                  profile.full_name,
+                  profile.nric,
+                  date_formater(profile.dob),
+                  profile.gender&.capitalize,
+                  profile.marital_status,
+                  profile.company,
+                  profile.job,
+                  profile.mobile_phone,
+                  profile.home_number,
+                  profile.facebook,
+                  profile.instagram,
+                  profile.linkedin,
+                  profile.address,
+                  country&.country_name,
+                  country&.nationality_name,
+                  profile.city,
+                  profile.postcode,
+                  date_formater(user.created_at),
+                ]
+    types = []
+    row_value.count.times { types << :string }
+
+    sheet.add_row row_value, types: types
+  end
+end

@@ -1,0 +1,35 @@
+.physical-ticket {
+  padding: 30px 0;
+
+  &__item {
+    @media only screen and (max-width: 768px) {
+        width: 100% !important;
+    }
+
+    @media only (min-width: 768.9px) and (max-width: 1400px) {
+        width: 36% !important;
+    }
+
+  }
+
+  &__qrcode-wrap {
+    padding: 30px 0;
+    background-color: #00c9f329 !important;
+  }
+
+  &__status-empty, &__status-checked,  &__status-collected {
+    padding: 12px 0;
+  }
+
+  &__status-empty {
+    background-color: #00c9f3a1 !important;
+  }
+}
+
+#qrcode img {
+  margin: auto;
+
+  @media only screen and (max-width: 350px) {
+      width: 260px !important;
+  }
+}

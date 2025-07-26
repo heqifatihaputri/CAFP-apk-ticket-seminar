@@ -1,0 +1,55 @@
+<%= render 'layouts/shared/breadcrumb' %>
+<section class="section profile">
+  <div class="row">
+    <div class="col-xl-12">
+      <div class="card">
+        <div class="card-body pt-3">
+          <!-- Bordered Tabs -->
+          <ul class="nav nav-tabs nav-tabs-bordered">
+            <li class="nav-item">
+              <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#profile-overview">Overview</button>
+            </li>
+          </ul>
+          <div class="tab-content pt-2">
+            <div class="tab-pane fade show active profile-overview" id="profile-overview">
+              <div align="right">
+                <%= link_to edit_admin_venue_path(@venue), class: 'btn btn-info me-2' do %>
+                  <i class='zmdi zmdi-edit'></i>
+                  Edit
+                <% end %>
+              </div>
+              <h5 class="card-title">Venue Details</h5>
+              <div class="row">
+                <div class="col-lg-3 col-md-4 label">Venue Name</div>
+                <div class="col-lg-9 col-md-8"><%= @venue.name %></div>
+              </div>
+              <div class="row">
+                <div class="col-lg-3 col-md-4 label">Full Address</div>
+                <div class="col-lg-9 col-md-8"><%= @venue.full_address %></div>
+              </div>
+              <div class="row">
+                <div class="col-lg-3 col-md-4 label">Postcode</div>
+                <div class="col-lg-9 col-md-8"><%= @venue.postcode %></div>
+              </div>
+              <div class="row">
+                <div class="col-lg-3 col-md-4 label">City</div>
+                <div class="col-lg-9 col-md-8"><%= @venue.city %></div>
+              </div>
+              <div class="row">
+                <div class="col-lg-3 col-md-4 label">Country</div>
+                <div class="col-lg-9 col-md-8"><%= @venue.country&.country_name %></div>
+              </div>
+              <div class="row">
+                <div class="col-lg-3 col-md-4 label">Contact</div>
+                <div class="col-lg-9 col-md-8"><%= @venue.contact %></div>
+              </div>
+            </div>
+          </div>
+          <div class="card-footer" align="left">
+            <%= link_to "Back", admin_venues_path, class: "btn btn-outline-primary me-2" %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

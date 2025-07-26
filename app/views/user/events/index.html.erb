@@ -1,0 +1,72 @@
+<%= render 'layouts/shared/breadcrumb' %>
+<section class="section">
+  <div class="row">
+    <div class="col-lg-12">
+      <%= render partial: 'user/events/partials/search' %>
+      <div class="card">
+        <div class="card-body">
+          <div class="row">
+            <div class="col-lg-11 mx-auto">
+              <div class="row py-5">
+                <% @events.each do |event| %>
+                  <div class="col-lg-3">
+                    <%= link_to user_event_path(event), class: "event-box-link" do %>
+                      <figure class="rounded p-3 bg-white shadow-sm event-box-wrapper">
+                        <% default_img = get_image_url(event.images&.first, :medium) rescue nil %>
+                        <%= image_tag(default_img, class: 'w-100 card-img-top') %>
+                        <figcaption class="p-4 card-img-bottom">
+                          <h1 class="event-box-title"><%= event.name.truncate(60) %></h1>
+                          <p class="mb-0 text-small text-muted font-italic"><%#= event.description.html_safe %></p>
+                            <div class="events__date">
+                              <i class="fas fa-calendar-check"></i>
+                              <span class="font-12">
+                                <%= event.date_period %>
+                              </span>
+                            </div>
+                            <div class="events__location">
+                              <i class="fas fa-map-marker-alt"></i>
+                              <span class="font-12"><%= event.venue_location %></span>
+                            </div>
+                        </figcaption>
+                      </figure>
+                    <% end %>
+                  </div>
+                <% end %>
+              </div>
+            </div>
+          </div>
+          <%= paginate @events,  window: 2 %>
+          <%= page_entries_info @events, entry_name: 'events' if @events.present? %>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<%#= form_with("https://api.xendit.co/v2/invoices", method: :post, :remote => true, :html => { id: "form-id" }) do |f| %>
+<%= form_with url: "https://api.xendit.co/v2/invoices", method: :post, local: true, id: 'form-id', html: {id: 'form-id'} do |f| %>
+  <%= f.hidden_field :externalID, value: 'your-external-id' %>
+  <%= f.hidden_field :payerEmail, value: 'stanley@xendit.co' %>
+  <%= f.hidden_field :description, value: 'stanley@xendit.co' %>
+  <%= f.hidden_field :description, value: 'Invoice for Shoes Purchase' %>
+  <%= f.hidden_field :amount, value: 30000 %>
+<% end %>
+
+<script>
+  $(document).ready(function(){
+    // $('#form-id').submit(function() {
+    //   var valuesToSubmit = $(this).serialize();
+    //   $.ajax({
+    //     type: "POST",
+    //     url: $(this).attr('action'),
+    //     data: valuesToSubmit,
+    //     headers: { 'Basic Auth': 'xnd_development_CR8zuvQNsxtbWNV9fIEHfNWLt3S0alC5X27AZWYbIudvkPill0oIZzQDKPTbM'},
+    //     success: function(response){
+    //       console.log(haha)
+    //       console.log(response)
+    //     }
+    //   })
+    //   return false;
+    // });
+  })
+</script>

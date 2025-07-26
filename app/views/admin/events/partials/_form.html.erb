@@ -1,0 +1,97 @@
+<%= form_with(model: event, url: url, local: true) do |form| %>
+  <%= render partial: 'layouts/shared/error_messages', locals: { resource: event } %>
+  <div class="row mb-3">
+    <%= form.label :name, 'Event Name<span class="text-danger">*</span>'.html_safe, class: "col-sm-2 col-form-label" %>
+    <div class="col-sm-10">
+      <%= form.text_field :name, class: 'form-control', required: true %>
+    </div>
+  </div>
+  <div class="row mb-3">
+    <%= form.label :description, 'Description <span class="text-danger">*</span>'.html_safe, class: "col-sm-2 col-form-label" %>
+    <div class="col-sm-10">
+      <%= form.text_area :description, class: 'form-control', required: true, style: "height: 100px;" %>
+    </div>
+  </div>
+  <div class="row mb-3">
+    <%= form.label :venue_id, 'Venue <span class="text-danger">*</span>'.html_safe, class: "col-sm-2 col-form-label" %>
+    <div class="col-sm-10">
+      <%= form.select :venue_id,
+          options_for_select(@venues, event.venue_id),
+          {include_blank: 'Select Venue'}, class: 'form-select custom-select select2', required: true %>
+    </div>
+  </div>
+
+  <div class="online-event">
+    <div class="row mb-3">
+      <%= form.label :platform_url, 'Platform URL'.html_safe, class: "col-sm-2 col-form-label" %>
+      <div class="col-sm-10">
+        <%= form.text_field :platform_url, class: 'form-control', placeholder: "https://www.example.com/" %>
+      </div>
+    </div>
+  </div>
+
+  <div class="row mb-3">
+    <%= form.label :published_date, 'Published Date<span class="text-danger">*</span>'.html_safe, class: "col-sm-2 col-form-label" %>
+    <div class="col-sm-3">
+      <%= form.datetime_field :published_date, class: 'form-control', placeholder: 'dd/mm/yyyy hh:mm pm/am', autocomplete: :off, required: true %>
+    </div>
+  </div>
+  <div class="row mb-3">
+    <legend class="col-form-label col-sm-2 pt-0">Ticket Start Selling</legend>
+    <div class="col-sm-10">
+      <div class="form-check">
+        <%= form.check_box :ticket_start_selling, class: 'form-check-input', id: "ticket-start-selling" %>
+        <%= form.label :ticket_start_selling, 'Yes, display it on the user page for sale'.html_safe, class: "form-check-label", for: "ticket-start-selling" %>
+      </div>
+    </div>
+  </div>
+  <div class="row mb-3">
+    <%= form.label :start_time, 'Start Time<span class="text-danger">*</span>'.html_safe, class: "col-sm-2 col-form-label" %>
+    <div class="col-sm-3">
+      <%= form.datetime_field :start_time, class: 'form-control', placeholder: 'dd/mm/yyyy hh:mm pm/am', autocomplete: :off, required: true %>
+    </div>
+  </div>
+  <div class="row mb-3">
+    <%= form.label :end_time, 'End Time<span class="text-danger">*</span>'.html_safe, class: "col-sm-2 col-form-label" %>
+    <div class="col-sm-3">
+      <%= form.datetime_field :end_time, class: 'form-control', placeholder: 'dd/mm/yyyy hh:mm pm/am', autocomplete: :off, required: true %>
+    </div>
+  </div>
+  <div class="row mb-3">
+    <%= form.label :speaker, 'Speaker<span class="text-danger">*</span>'.html_safe, class: "col-sm-2 col-form-label" %>
+    <div class="col-sm-10">
+      <%= form.text_field :speaker, class: 'form-control', required: true %>
+    </div>
+  </div>
+  <div class="row mb-3">
+    <div class="col-md-12 col-12">
+      <label>Image/Video</label>
+      <%= hidden_field_tag :image, nil, class: "upload-data" %>
+      <%= file_field_tag   :image, multiple: true, class: 'form-control-file upload-multi-file' %>
+    </div>
+    <div class="col-12">
+      <strong>Image List</strong>
+    </div>
+    <div class="col-12 upload-preview row">
+      <%= form.fields_for :images do |img_f| %>
+        <div class="col-3 image-col image-<%= img_f.object.id %> mt-auto">
+          <%= image_tag get_image_url(img_f.object), class: 'w-100 m-0 p-0' if img_f.object.image_data? %>
+          <span>
+            <a href="javascript:void(0)" class="remove-image" data-pic-id=".image-<%= img_f.object.id %>" data-id="<%= img_f.object.id %>">
+              Remove
+            </a>
+          </span>
+          <%= img_f.hidden_field :id %>
+          <%= img_f.hidden_field :image, value: (img_f.object.new_record? ? img_f.object.cached_image_data : nil) %>
+          <%= img_f.hidden_field :_destroy, class: "destroy-field-#{img_f.object.id}" %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+  <div class="card-footer text-right">
+    <%= form.submit "Submit", class: 'btn btn-success', id: 'button-form-event' %>
+
+    <% back_url = @event.new_record? ? admin_events_path : admin_event_path(@event) %>
+    <%= link_to "Back", back_url, class: 'btn btn-outline-primary' %>
+  </div>
+<% end %>

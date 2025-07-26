@@ -1,0 +1,50 @@
+<%= render 'layouts/shared/breadcrumb' %>
+<section class="section">
+  <div class="row">
+    <div class="col-lg-12">
+      <%= render partial: 'admin/tickets/partials/search' %>
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">All Tickets Sold</h5>
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th scope="col">No</th>
+                <th scope="col">Ticket ID</th>
+                <th scope="col">Ticket Code</th>
+                <th scope="col">Ownership UID</th>
+                <th scope="col">Ownership Name</th>
+                <th scope="col">Attendee Name</th>
+                <th scope="col">Remark</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+              <% @tickets.each_with_index do |ticket, idx| %>
+                <tr>
+                  <th scope="row"><%= idx+1 %></th>
+                  <td>#<%= ticket.id %></td>
+                  <td><%= ticket.link_token %></td>
+                  <td><%= ticket.get_user_uid %></td>
+                  <td><%= ticket.ownership&.user_profile&.full_name %></td>
+                  <td><%= ticket.attendee_name %></td>
+                  <td><%= ticket.remark %></td>
+                  <td>
+                    <% if ticket.allow_print_certificate? %>
+                      <%#= link_to "Print Certificate", print_certification_path(ticket, format: "pdf"),
+                        class: 'btn btn-info text-white', target: "_blank" %>
+                      <%= link_to "Print Certificate", ticket_certification_index_path(ticket),
+                        class: 'btn btn-info text-white', target: "_blank" %>
+                    <% end  %>
+                  </td>
+                </tr>
+              <% end %>
+            </tbody>
+          </table>
+          <%= paginate @tickets,  window: 2 %>
+          <%= page_entries_info @tickets, entry_name: 'tickets' if @tickets.present? %>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

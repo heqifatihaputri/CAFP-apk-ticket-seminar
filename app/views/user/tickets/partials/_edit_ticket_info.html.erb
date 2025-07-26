@@ -1,0 +1,30 @@
+<div class="modal fade" id="editTicketInfo" tabindex="-1" role="dialog" aria-labelledby="Get Link Modal" style="display: none;" aria-hidden="true">
+   <div class="modal-dialog" role="document">
+      <%= form_for ticket, url: update_remark_user_ticket_path(ticket), method: :put do |f| %>
+        <div class="modal-content rounded">
+           <div class="modal-header">
+              <h5 class="modal-title">Ticket Info <%= "##{ticket.id}" %></h5>
+           </div>
+           <div class="modal-body">
+             <div class="row px-2">
+               <div class="col-12">
+                <div class="form-group">
+                  <%= f.label :attendee_name, 'Attendee Name' %>
+                  <%= f.text_field :attendee_name, class: "form-control mt-2" %>
+                </div>
+                <div class="form-group mt-3">
+                  <%= f.label :remark, 'Edit Remark' %>
+                  <%= f.text_area :remark, class: "form-control mt-2" %>
+                  <%= f.hidden_field :id, value: ticket.id %>
+                </div>
+               </div>
+             </div>
+           </div>
+           <div class="modal-footer">
+             <button class="btn btn-outline-white rounded" data-dismiss="modal" aria-label="Close" type="button">Cancel</button>
+             <button class="btn btn-primary rounded">Update</button>
+           </div>
+        </div>
+      <% end %>
+   </div>
+</div>

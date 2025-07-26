@@ -1,0 +1,46 @@
+<!-- <h5 class="card-title">Ticket Stocks</h5> -->
+<div align="right">
+  <%= link_to admin_event_tickets_path(@event), class: 'btn btn-primary mb-4' do %>
+    <i class='zmdi zmdi-eyes'></i>
+    All Tickets
+  <% end %>
+  <%= link_to new_admin_event_ticket_stock_path(@event), class: 'btn btn-success mb-4' do %>
+    <i class='zmdi zmdi-plus-circle'></i>
+    New Ticket Stock
+  <% end %>
+</div>
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th scope="col">No</th>
+      <th scope="col">Ticket SKU</th>
+      <th scope="col">Name</th>
+      <th scope="col">Available Stock</th>
+      <th scope="col">Ticket Sold</th>
+      <th scope="col">Total Stock</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% stocks.each_with_index do |stock, idx| %>
+      <tr>
+        <th scope="row"><%= idx+1 %></th>
+        <td><%= stock.sku %></td>
+        <td><%= stock.name %></td>
+        <td><%= stock.quantity %></td>
+        <td><%= stock.sold_quantity %></td>
+        <td><%= stock.total_stock %></td>
+        <td>
+          <%= link_to "Details", admin_event_ticket_stock_path(@event, stock), class: "btn btn-primary" %>
+          <%= link_to edit_admin_event_ticket_stock_path(@event, stock), class: 'btn btn-info' do %>
+              <i class='zmdi zmdi-edit'></i>
+              Edit
+          <% end %>
+          <%= link_to "Delete", admin_event_ticket_stock_path(@event, stock), method: :delete,
+              data: { method: :delete, confirm: 'Are you sure?' },
+              class: "btn btn-danger ml-3" %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

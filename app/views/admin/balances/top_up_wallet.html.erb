@@ -1,0 +1,5 @@
+<%= render partial: 'admin/balances/remote_modal', locals: { title: "New item" } do %>
+
+  <%= render partial: 'admin/balances/partials/top_up_form', locals: { balance: @balance, user: @balance.user, modal_id: 'modal_top_up' } %>
+
+<% end %>

@@ -1,0 +1,81 @@
+<%= render 'layouts/shared/breadcrumb' %>
+<section class="section">
+  <div class="row">
+    <div class="col-lg-12">
+      <%= render partial: 'admin/users/partials/search' %>
+      <div class="card">
+        <div class="card-body">
+          <div class="d-flex">
+            <div class="col-md-6">
+              <h5 class="card-title">User Data</h5>
+            </div>
+            <div class="col-md-6 mt-2" align="right">
+              <%= link_to new_admin_user_path, class: 'btn btn-success mb-4' do %>
+                <i class='zmdi zmdi-plus-circle'></i>
+                New User
+              <% end %>
+            </div>
+          </div>
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th scope="col">No</th>
+                <th scope="col">User UID</th>
+                <th scope="col">Email</th>
+                <th scope="col">Full Name</th>
+                <th scope="col">Gender</th>
+                <th scope="col">Company / Community</th>
+                <th scope="col">Job</th>
+                <th scope="col">City</th>
+                <th scope="col">Registered At</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+              <% @users.each_with_index do |user, idx| %>
+                <% profile = user.user_profile %>
+                <tr>
+                  <th scope="row"><%= idx+1 %></th>
+                  <td><%= profile.user_uid %></td>
+                  <td><%= user.email %></td>
+                  <td><%= profile.full_name %></td>
+                  <td><%= profile.gender %></td>
+                  <td><%= profile.company %></td>
+                  <td><%= profile.job %></td>
+                  <td><%= profile.city %></td>
+                  <td><%= date_formater(user.created_at) %></td>
+                  <td>
+                    <div class="dropdown">
+                      <button class="nav-item dropdown pe-3 btn btn-secondary">
+                        <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
+                          <span class="d-none d-md-block dropdown-toggle ps-2">Action</span>
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end">
+                          <li>
+                            <%= link_to admin_user_path(user), class: "dropdown-item d-flex align-items-center" do %>
+                              <i class="zmdi zmdi-eye"></i><span>Details</span>
+                            <% end %>
+                            <%= link_to edit_admin_user_path(user), class: "dropdown-item d-flex align-items-center" do %>
+                              <i class="zmdi zmdi-edit"></i>Edit
+                            <% end %>
+                            <%= link_to admin_user_path(user),
+                                data: { method: :delete, confirm: 'Are you sure?' },
+                                class: "dropdown-item d-flex align-items-center" do %>
+                              <i class="zmdi zmdi-delete"></i><span>Delete</span>
+                            <% end %>
+                          </li>
+                        </ul>
+                      </button>
+                    </div>
+                  </td>
+                </tr>
+              <% end %>
+            </tbody>
+          </table>
+          <%= paginate @users,  window: 2 %>
+          <%= page_entries_info @users, entry_name: 'users' if @users.present? %>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

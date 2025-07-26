@@ -1,0 +1,86 @@
+<%= render 'layouts/shared/breadcrumb' %>
+<section class="section event">
+  <div class="row">
+    <div class="col-xl-12">
+      <div class="card">
+        <div class="card-body pt-3">
+          <!-- Bordered Tabs -->
+          <div align="left">
+            <%= link_to 'Back', admin_orders_path, class: 'btn btn-outline-primary mb-4' %>
+          </div>
+          <ul class="nav nav-tabs nav-tabs-bordered">
+            <li class="nav-item">
+              <%= link_to "Overview", admin_order_path(@order), class: "nav-link active" %>
+            </li>
+          </ul>
+          <div class="tab-content pt-2">
+            <div class="tab-pane fade show active" id="order-overview">
+              <h5 class="card-title">Order Details</h5>
+              <div class="row mb-2">
+                <div class="col-lg-3 col-md-4 label">Order ID</div>
+                <div class="col-lg-9 col-md-8">#<%= @order.id %></div>
+              </div>
+              <div class="row mb-2">
+                <div class="col-lg-3 col-md-4 label">Recipient Name</div>
+                <div class="col-lg-9 col-md-8"><%= @profile.full_name %></div>
+              </div>
+              <div class="row mb-2">
+                <div class="col-lg-3 col-md-4 label ">Phone Number</div>
+                <div class="col-lg-9 col-md-8"><%= @profile.mobile_phone %></div>
+              </div>
+
+              <h5 class="mt-4"><strong>Payment Info</strong></h5>
+              <div class="row mb-2">
+                <div class="col-lg-3 col-md-4 label">Invoice ID</div>
+                <div class="col-lg-9 col-md-8"><%= @invoice.invoice_uid %></div>
+              </div>
+              <div class="row mb-2">
+                <div class="col-lg-3 col-md-4 label">Payment Date</div>
+                <div class="col-lg-9 col-md-8"><%= date_formater(@invoice.paydate, '%d/%m/%Y %I:%M %p') %></div>
+              </div>
+              <div class="row mb-2">
+                <div class="col-lg-3 col-md-4 label">Payment Method</div>
+                <div class="col-lg-9 col-md-8"><%= @order.payment_method.titleize %></div>
+              </div>
+              <div class="row mb-2">
+                <div class="col-lg-3 col-md-4 label">Payment Status</div>
+                <div class="col-lg-9 col-md-8"><%= @invoice.status.titleize %></div>
+              </div>
+
+
+              <h5 class="mt-4"><strong>Item Details</strong></h5>
+              <table class="table table-striped">
+                <thead>
+                  <tr>
+                    <th scope="col">Event Name</th>
+                    <th scope="col">Ticket</th>
+                    <th scope="col">QTY</th>
+                    <th scope="col">Price</th>
+                    <th scope="col">Item Total</th>
+                    <th></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <% @order_items.each_with_index do |item, idx| %>
+                    <% details = item.product_details %>
+                    <tr>
+                      <td><%= details[:event_name] %></td>
+                      <td><%= "#{details[:ticket_name]} (#{details[:sku]})" %></td>
+                      <td><%= item.quantity %></td>
+                      <td><%= money_format(item.price) %></td>
+                      <td><%= money_format(item.quantity * item.price) %></td>
+                    </tr>
+                    <tr>
+                      <th colspan="4">Total</th>
+                      <th><%= money_format(@order.total) %></th>
+                    </tr>
+                  <% end %>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

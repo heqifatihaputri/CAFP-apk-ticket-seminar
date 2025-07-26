@@ -1,0 +1,24 @@
+<div class="card main-card">
+  <%= search_form_for @q, url: user_events_path, html: { method: :get } do |f| %>
+    <div class="card-body">
+    <h4 class="card-title">Advanced Search</h4>
+    <section class="p-0">
+      <div class="collapse show" id="advanceSearch">
+        <div class="row">
+          <div class="col-lg-4 col-12 mb-2">
+            <%= f.label :name_cont, 'Name' %>
+            <%= f.search_field :name_cont, class: 'form-control' %>
+          </div>
+          <div class="col-lg-4 col-12 mb-2">
+            <%= f.label :ticket_start_selling_eq, 'Status' %>
+            <%= f.select :ticket_start_selling_eq, options_for_select(@select_status, params[:q][:ticket_start_selling_eq]), { }, class: "form-control" %>
+          </div>
+        </div>
+    </section>
+    </div>
+    <div class="card-footer default">
+      <%= f.submit class: 'btn btn-primary' %>
+      <a class="btn btn-outline-primary mr-2" href="/user/events">Reset</a>
+    </div>
+  <% end %>
+</div>

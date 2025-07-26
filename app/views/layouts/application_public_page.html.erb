@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en">
+  <head>
+    <%= render 'layouts/shared/favicon' %>
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= stylesheet_pack_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag "turbo", type: "module" %>
+
+    <link href="https://fonts.gstatic.com" rel="preconnect">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+  </head>
+
+  <body>
+    <div class="page-wrapper">
+      <div class="container-fluid">
+        <%= flash_message %>
+        <%= yield %>
+        <%= turbo_frame_tag "remote_modal", target: "_top" %>
+      </div>
+      <% unless params[:controller].include?("certification") %>
+        <footer class="footer text-center">
+          Copyright @ Heqi Fatiha Putri
+        </footer>
+      <% end %>
+    </div>
+  </body>
+  <%= yield(:custom_js_tag) %>
+</html>

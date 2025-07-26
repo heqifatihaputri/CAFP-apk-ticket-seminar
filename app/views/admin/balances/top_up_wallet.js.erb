@@ -1,0 +1,2 @@
+$("#top-up-modals").html("<%= j (render partial: 'admin/balances/partials/top_up_form', locals: {balance: @balance, user: @balance.user, modal_id: 'modal_top_up' }) %>");
+$("#modal_top_up").modal('show');

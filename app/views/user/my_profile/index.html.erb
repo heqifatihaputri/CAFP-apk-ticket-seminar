@@ -1,0 +1,18 @@
+<%= render 'layouts/shared/breadcrumb' %>
+<section class="section">
+  <div class="row">
+    <div class="col-lg-12">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">Update Profile</h5>
+          <%= render partial: "user/my_profile/partials/form",locals:
+              { user: current_user,
+                genders: @genders,
+                marital_statuses: @marital_statuses,
+                countries: @countries,
+                url: admin_user_path(current_user) } %>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

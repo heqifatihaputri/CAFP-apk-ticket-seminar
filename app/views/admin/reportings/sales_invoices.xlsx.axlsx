@@ -1,0 +1,36 @@
+wb = xlsx_package.workbook
+wb.add_worksheet(name: @export_name) do |sheet|
+
+  sheet.add_row [
+                  "Invoice ID", "Payment Date", "Payment Method", "Order ID", "Recipient Name", "Phone Number", "Total Amount", "Details"
+                ]
+  @data.each do |invoice|
+    order   = invoice.order
+    details = ""
+
+    order.order_items.each do |item|
+      product_details = item.product_details
+
+      details += "Event  : \n#{product_details[:event_name]}\n"
+      details += "Ticket : \n#{product_details[:ticket_name]}(#{product_details[:sku]})\n"
+      details += "Description: #{product_details[:description]}\n"
+      details += "Quantity: #{item.quantity}\n"
+      details += "Price: #{money_format(item.price.to_f)}\n"
+    end
+
+    row_value = [
+                  invoice.id,
+                  date_formater(invoice.paydate, '%d/%m/%Y'),
+                  order.payment_method.titleize,
+                  invoice.order_id,
+                  order.recepient_name,
+                  order.phone_number,
+                  money_format(invoice.total.to_f),
+                  details
+                ]
+    types = []
+    row_value.count.times { types << :string }
+
+    sheet.add_row row_value, types: types
+  end
+end

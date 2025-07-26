@@ -1,0 +1,87 @@
+<%= render 'layouts/shared/breadcrumb' %>
+<section class="section event">
+  <div class="row">
+    <div class="col-xl-12">
+      <div class="card">
+        <div class="card-body pt-3">
+          <ul class="nav nav-tabs nav-tabs-bordered">
+            <li class="nav-item">
+              <%= link_to "Overview", admin_event_path(tab: "event-overview"), class: "nav-link #{'active' if @tab.eql?("event-overview")}" %>
+            </li>
+            <li class="nav-item">
+              <%= link_to "Ticket Stock", admin_event_path(tab: "ticket-stock"), class: "nav-link #{'active' if @tab.eql?("ticket-stock")}" %>
+            </li>
+            <li class="nav-item">
+              <%= link_to "Event Session Management", admin_event_path(tab: "event-session"), class: "nav-link #{'active' if @tab.eql?("event-session")}" %>
+            </li>
+          </ul>
+          <div class="tab-content pt-2">
+            <div class="tab-pane fade <%= 'show active' if @tab.eql?("event-overview") %> event-overview" id="event-overview">
+              <div align="right">
+                <%= link_to edit_admin_event_path(@event), class: 'btn btn-info me-2' do %>
+                  <i class='zmdi zmdi-edit'></i>
+                  Edit
+                <% end %>
+              </div>
+              <h5 class="card-title">Event Details</h5>
+              <div class="row mb-2">
+                <div class="col-lg-3 col-md-4 label font-weight-bold">Event Name</div>
+                <div class="col-lg-9 col-md-8"><%= @event.name %></div>
+              </div>
+              <div class="row mb-2">
+                <div class="col-lg-3 col-md-4 label font-weight-bold">Description</div>
+                <div class="col-lg-9 col-md-8"><%= @event.description.html_safe %></div>
+              </div>
+              <div class="row mb-2">
+                <div class="col-lg-3 col-md-4 label font-weight-bold ">Date</div>
+                <div class="col-lg-9 col-md-8"><%= @event.date_period %></div>
+              </div>
+              <div class="row mb-2">
+                <div class="col-lg-3 col-md-4 label font-weight-bold">Ticket Start Selling</div>
+                <div class="col-lg-9 col-md-8"><%= @event.selling_status %></div>
+              </div>
+              <div class="row mb-2">
+                <div class="col-lg-3 col-md-4 label font-weight-bold">Speaker</div>
+                <div class="col-lg-9 col-md-8"><%= @event.speaker %></div>
+              </div>
+              <div class="row mb-2">
+                <div class="col-lg-3 col-md-4 label font-weight-bold">Venue</div>
+                <div class="col-lg-9 col-md-8"><%= @event.venue&.name || "-" %></div>
+              </div>
+              <div class="row mb-2">
+                <div class="col-lg-3 col-md-4 label font-weight-bold">Publish Date</div>
+                <div class="col-lg-9 col-md-8"><%= date_formater(@event.published_date, '%d/%m/%Y %I:%M %p') %></div>
+              </div>
+              <div class="row mb-2">
+                <div class="col-lg-3 col-md-4 label font-weight-bold">Images</div>
+                <div class="row">
+                  <%= "<div class='col-12'><p>-</p></div>".html_safe if @images.blank? %>
+                  <% @images.each do |image| %>
+                    <div class='col-3 mt-auto mb-2 list-img__images'>
+                      <div class="img-box shadow">
+                        <%= image_tag get_image_url(image, :small), class: 'w-100' if image.image_data? %>
+                      </div>
+                    </div>
+                  <% end %>
+                </div>
+              </div>
+            </div>
+
+            <% if @tab.eql?("ticket-stock") %>
+              <div class="tab-pane fade show active pt-3" id="ticket-stock">
+                <%= render partial: "admin/events/partials/table_ticket_stocks", locals: {stocks: @stocks} %>
+              </div>
+            <% elsif @tab.eql?("event-session") %>
+              <div class="tab-pane fade show active pt-3" id="event-session">
+                <%= render partial: "admin/events/partials/table_event_sessions", locals: {event_sessions: @event_sessions} %>
+              </div>
+            <% end %>
+          </div>
+          <div class="card-footer" align="left">
+            <%= link_to "Back", admin_events_path, class: "btn btn-outline-primary me-2" %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

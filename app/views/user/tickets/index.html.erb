@@ -1,0 +1,36 @@
+<%= render 'layouts/shared/breadcrumb' %>
+<section class="section">
+  <div class="row">
+    <div class="col-lg-12">
+      <div class="card">
+        <div class="card-body">
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th scope="col">Ticket Name</th>
+                <th scope="col">Quantity</th>
+                <th scope="col">Event Date</th>
+                <th scope="col"></th>
+              </tr>
+            </thead>
+            <tbody>
+              <% @tickets.each do |ticket_stock, total| %>
+                <tr>
+                  <td>
+                    <%= ticket_stock.name %>
+                    <p><small><strong><%= ticket_stock.sku %></strong></small></p>
+                  </td>
+                  <td><%= total %></td>
+                  <td><%= ticket_stock.event.date_period %></td>
+                  <td><%= link_to "Details", ticket_details_user_tickets_path(ticket_stock), class: "btn btn-primary py-1 small" %></td>
+                </tr>
+              <% end %>
+            </tbody>
+          </table>
+          <%= paginate @tickets,  window: 2 %>
+          <%= page_entries_info @tickets, entry_name: 'tickets' if @tickets.present? %>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

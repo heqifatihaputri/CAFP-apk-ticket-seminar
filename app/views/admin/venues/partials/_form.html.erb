@@ -1,0 +1,47 @@
+<%= form_with(model: venue, url: url, local: true) do |form| %>
+  <%= render partial: 'layouts/shared/error_messages', locals: { resource: venue } %>
+  <div class="row mb-3">
+    <%= form.label :name, 'Venue Name<span class="text-danger">*</span>'.html_safe, class: "col-sm-2 col-form-label" %>
+    <div class="col-sm-10">
+      <%= form.text_field :name, class: 'form-control', required: true %>
+    </div>
+  </div>
+  <div class="row mb-3">
+    <%= form.label :city, 'City<span class="text-danger">*</span>'.html_safe, class: "col-sm-2 col-form-label" %>
+    <div class="col-sm-10">
+      <%= form.text_field :city, class: 'form-control', required: true %>
+    </div>
+  </div>
+  <div class="row mb-3">
+    <%= form.label :country_id, 'Country <span class="text-danger">*</span>'.html_safe, class: "col-sm-2 col-form-label" %>
+    <div class="col-sm-10">
+      <%= form.select :country_id,
+          options_for_select(countries, venue.country_id),
+          {include_blank: 'Select Country'}, class: 'form-select custom-select select2', required: true %>
+    </div>
+  </div>
+  <div class="row mb-3">
+    <%= form.label :postcode, 'Postcode<span class="text-danger">*</span>'.html_safe, class: "col-sm-2 col-form-label" %>
+    <div class="col-sm-10">
+      <%= form.text_field :postcode, class: 'form-control field-number', required: true %>
+    </div>
+  </div>
+  <div class="row mb-3">
+    <%= form.label :full_address, 'Full Address <span class="text-danger">*</span>'.html_safe, class: "col-sm-2 col-form-label" %>
+    <div class="col-sm-10">
+      <%= form.text_area :full_address, class: 'form-control', required: true, style: "height: 100px;" %>
+    </div>
+  </div>
+  <div class="row mb-3">
+    <%= form.label :contact, 'Contact<span class="text-danger">*</span>'.html_safe, class: "col-sm-2 col-form-label" %>
+    <div class="col-sm-10">
+      <%= form.text_field :contact, class: 'form-control field-number', required: true %>
+    </div>
+  </div>
+  <div class="card-footer text-right">
+    <%= form.submit "Submit", class: 'btn btn-success', id: 'button-form-venue' %>
+
+    <% back_url = @venue.new_record? ? admin_venues_path : admin_venue_path(@venue) %>
+    <%= link_to "Back", back_url, class: 'btn btn-outline-primary' %>
+  </div>
+<% end %>

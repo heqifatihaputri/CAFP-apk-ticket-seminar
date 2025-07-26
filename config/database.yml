@@ -1,0 +1,27 @@
+default: &default
+  adapter: postgresql
+  encoding: unicode
+  host: localhost
+  pool: 5
+  username: postgres
+  password: postgres
+
+development:
+  <<: *default
+  database: apk_ticket_semonar_development
+
+staging:
+  url: <%= ENV['DATABASE_URL'] %>
+
+production:
+  url: <%= ENV['DATABASE_URL'] %>
+
+production:
+  adapter: postgresql
+  encoding: unicode
+  username: rails
+  password: f63d6c1c8700f6dd9b1f97ac9e752b6f
+  database: apk_ticket_semonar_production
+  host: localhost
+  pool: 5
+  template: template0

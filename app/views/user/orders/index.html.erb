@@ -1,0 +1,83 @@
+<%= render 'layouts/shared/breadcrumb' %>
+<section class="section profile">
+  <div class="row">
+    <div class="col-xl-12">
+      <div class="card">
+        <div class="card-body pt-3">
+          <div class="dropdown">
+          <ul class="nav nav-tabs nav-tabs-bordered">
+            <li class="nav-item">
+              <%= link_to "My Orders", user_orders_path, class: "nav-link #{'active' if @tab.eql?("my-order")}" %>
+            </li>
+            <li class="nav-item">
+              <%= link_to "Pending Orders", user_order_temps_path, class: "nav-link #{'active' if @tab.eql?("pending-order")}" %>
+            </li>
+          </ul>
+          <div class="tab-content pt-2">
+            <div class="tab-pane fade show active my-order" id="my-order">
+              <section class="section">
+                <div class="row">
+                  <div class="col-lg-12">
+                    <div class="card">
+                      <div class="card-body">
+                        <table class="table table-striped">
+                          <thead>
+                            <tr>
+                              <th scope="col">Ticket</th>
+                              <th scope="col">Order ID</th>
+                              <th scope="col">Status</th>
+                              <th scope="col">Price</th>
+                              <th scope="col">Qty</th>
+                              <th scope="col">Total</th>
+                              <th scope="col">Action</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <% @orders.each do |order| %>
+                              <% order_items = order.order_items.sort %>
+                              <% first_item  = order_items.first %>
+                              <% order_items.each do |item| %>
+                                <% ticket_stock = item.ticket_stock %>
+                                <tr>
+                                  <td>
+                                    <%= ticket_stock.event&.name %>
+                                    <p><small><strong><%= ticket_stock.name %></strong></small></p>
+                                  </td>
+                                  <% if item.id.eql?(first_item.id) %>
+                                    <td>#<%= order.id %></td>
+                                    <td><%= order_status(order) %></td>
+                                    <td><%= item_price(item) %></td>
+                                    <td><%= item.quantity %></td>
+                                    <td><%= order.total %></td>
+                                    <td><%= link_to "Details", user_order_path(order), class: "btn btn-primary py-1 small" %></td>
+                                  <% else %>
+                                    <% 2.times do %>
+                                      <td></td>
+                                    <% end %>
+                                    <td><%= item_price(item) %></td>
+                                    <td><%= item.quantity %></td>
+                                    <% 2.times do %>
+                                      <td></td>
+                                    <% end %>
+                                  <% end %>
+                                </tr>
+                              <% end %>
+                            <% end %>
+                          </tbody>
+                        </table>
+                        <%= paginate @orders,  window: 2 %>
+                        <%= page_entries_info @orders, entry_name: 'orders' if @orders.present? %>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </section>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div id='top-up-modals'></div>

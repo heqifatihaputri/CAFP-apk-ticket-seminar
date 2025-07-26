@@ -1,0 +1,20 @@
+var table = "<%= escape_javascript(render partial: 'user/carts/partials/cart_table', locals: { cart_item: @cart_item, cart_items: @cart_items }) %>";
+$("#cart-table").html(table);
+
+callUpdateTotalCart();
+
+window.addEventListener( "pageshow", function ( event ) {
+  var historyTraversal = event.persisted || 
+                        ( typeof window.performance != "undefined" && 
+                              window.performance.navigation.type === 2 );
+
+  var startDate = new Date(<%= Time.now.to_i * 1000 %>);
+  var endDate   = new Date();
+  var seconds = (endDate.getTime() - startDate.getTime());
+  var expired = seconds > 1000 * 60 * 3; // 3 minutes
+
+  if ( historyTraversal && expired ) {
+    // Handle page reload.
+    window.location.reload();
+  }
+});

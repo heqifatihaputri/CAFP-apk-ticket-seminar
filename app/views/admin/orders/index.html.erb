@@ -1,0 +1,57 @@
+<%= render 'layouts/shared/breadcrumb' %>
+<section class="section">
+  <div class="row">
+    <div class="col-lg-12">
+      <%= render partial: 'admin/orders/partials/search' %>
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">Order Data</h5>
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th scope="col">No</th>
+                <th scope="col">Order ID</th>
+                <th scope="col">Invoice ID</th>
+                <th scope="col">Recepient Name</th>
+                <th scope="col">Payment Method</th>
+                <th scope="col">Payment Date</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+              <% @orders.each_with_index do |order, idx| %>
+                <% invoice = order.invoice %>
+                <tr>
+                  <th scope="row"><%= idx+1 %></th>
+                  <td>#<%= order.order_uid %></td>
+                  <td>#<%= invoice.invoice_uid %></td>
+                  <td><%= order.user.user_profile.full_name %></td>
+                  <td><%= order.payment_method.titleize %></td>
+                  <td><%= date_formater(invoice.paydate) %></td>
+                  <td>
+                    <div class="dropdown">
+                      <button class="nav-item dropdown pe-3 btn btn-secondary">
+                        <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
+                          <span class="d-none d-md-block dropdown-toggle ps-2">Action</span>
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end">
+                          <li>
+                            <%= link_to admin_order_path(order), class: "dropdown-item d-flex align-items-center" do %>
+                              <i class="zmdi zmdi-eye"></i><span>Details</span>
+                            <% end %>
+                          </li>
+                        </ul>
+                      </button>
+                    </div>
+                  </td>
+                </tr>
+              <% end %>
+            </tbody>
+          </table>
+          <%= paginate @orders,  window: 2 %>
+          <%= page_entries_info @orders, entry_name: 'orders' if @orders.present? %>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

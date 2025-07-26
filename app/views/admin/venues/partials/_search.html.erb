@@ -1,0 +1,28 @@
+<div class="card main-card">
+  <%= search_form_for @q, url: admin_venues_path, html: { method: :get } do |f| %>
+    <div class="card-body">
+    <h4 class="card-title">Advanced Search</h4>
+    <section class="p-0">
+      <div class="collapse show" id="advanceSearch">
+        <div class="row">
+          <div class="col-lg-4 col-12 mb-2">
+            <%= f.label :name_cont, 'Name' %>
+            <%= f.search_field :name_cont, class: 'form-control' %>
+          </div>
+          <div class="col-lg-4 col-12 mb-2">
+            <%= f.label :city_cont, 'City' %>
+            <%= f.search_field :city_cont, class: 'form-control' %>
+          </div>
+          <div class="col-lg-4 col-12 mb-2">
+            <%= f.label :country_id_eq, 'Country' %>
+            <%= f.select :country_id_eq, options_for_select(@countries, params[:q][:country_id_eq]), { include_blank: 'Select Country' }, class: "form-control" %>
+          </div>
+        </div>
+    </section>
+    </div>
+    <div class="card-footer default">
+      <%= f.submit class: 'btn btn-primary' %>
+      <a class="btn btn-outline-primary mr-2" href="/admin/venues">Reset</a>
+    </div>
+  <% end %>
+</div>

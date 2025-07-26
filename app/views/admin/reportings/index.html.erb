@@ -1,0 +1,43 @@
+<%= render 'layouts/shared/breadcrumb' %>
+<section class="section">
+  <div class="row">
+    <div class="col-lg-12">
+      <div class="card main-card">
+        <%= form_tag export_report_admin_reportings_path(format: :xlsx), method: :get do %>
+          <div class="card-body">
+          <h4 class="card-title">Reporting</h4>
+          <section class="p-0">
+            <div class="collapse show" id="advanceSearch">
+              <div class="row">
+                <div class="col-lg-4 col-12 mb-2">
+                  <%= label_tag  :date_range, 'Date Period' %>
+                  <%= text_field_tag :date_range, params[:date_range], { class: "form-control daterange", autocomplete: :off, required: true, placeholder: 'dd/mm/yy - dd/mm/yy' } %>
+                </div>
+                <div class="col-lg-4 col-12 mb-2">
+                  <%= label_tag :report_option, 'Report Option' %><br>
+                  <%= select_tag :report_option, options_for_select(@select_options), class: 'form-control', include_blank: 'Select Options', required: true %>
+                </div>
+              </div>
+          </section>
+          </div>
+          <div class="card-footer default">
+            <%= submit_tag "Export", class: "btn btn-primary", id: "export-btn" %>
+            <%= link_to "Reset", admin_reportings_path, class: "btn btn-outline-primary mr-2" %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</section>
+
+<% content_for :custom_js_tag do %>
+<script>
+  $(document).ready(function(){
+    $("#export-btn").click(function(){
+      setTimeout(() => {
+        $(this).removeAttr("disabled");
+      }, 500)
+    });
+  });
+</script>
+<% end %>

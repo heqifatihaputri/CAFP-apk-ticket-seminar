@@ -1,0 +1,70 @@
+<main id="main" class="main">
+  <section class="section profile">
+    <div class="row">
+      <div class="col-xl-7">
+        <div class="card">
+          <div class="card-body event-card pt-4 d-flex flex-column align-items-center">
+            <% default_img = get_image_url(@event.images&.first, :medium) rescue nil %>
+            <%= image_tag(default_img, class: 'w-100 card-img-top') %>
+            <h2 class="mt-4"><%= @event.name %></h2>
+          </div>
+          <div class="card-body profile-card pt-4 d-flex flex-column">
+            <%= @event.description.html_safe %>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-xl-5">
+        <div class="card">
+          <div class="card-body pt-3">
+            <div class="tab-content pt-2">
+              <div class="tab-pane fade show active profile-overview" id="profile-overview">
+                <h5 class="card-title" style="font-size: 24px!important;"><%= @event.name %></h5>
+                <!-- <p class="small"><%#= @event.date_period %></p> -->
+                <div class="row">
+                  <div class="col-lg-3 col-md-4 label ">Date & Time</div>
+                  <div class="col-lg-9 col-md-8"><%= @event.date_period %></div>
+                </div>
+                <div class="row">
+                  <div class="col-lg-3 col-md-4 label">Location</div>
+                  <div class="col-lg-9 col-md-8"><%= @event.venue_location %></div>
+                </div>
+                <div class="row">
+                  <div class="col-lg-3 col-md-4 label">Speaker</div>
+                  <div class="col-lg-9 col-md-8"><%= @event.speaker %></div>
+                </div>
+                <div class="row">
+                  <div class="col-lg-3 col-md-4 label">Scan QR Link</div>
+                  <div class="col-lg-9 col-md-8">
+                      <span class="schedule__detail-content">
+                        <%= link_to "User Attendance", link_user_ticket_path(@ticket, @ticket.link_token) rescue "-" %><br><br>
+                        <%= link_to 'Refresh', show_events_path(@event, link_token: params[:link_token]), class: "btn btn-primary mb-2" %>
+                      </span>
+                    
+                    <% if !@event.time_before_start.eql?(0) %>
+                      <% if @event.time_before_start > 29 %>
+                        <div class="alert alert-danger" role="alert">
+                          Event will start in <%= @event.time_before_start-29 %> minutes.
+                        </div>
+                      <% else %>
+                        <% if @event.is_started? %>
+                          <div class="alert alert-success" role="alert">
+                            Event already started. Please Scan QR Link.
+                          </div>
+                        <% end %>
+                      <% end %>
+                    <% else %>
+                      <div class="alert alert-danger" role="alert">
+                        Event will start on time, please refresh this page 1 hour prior the event.
+                      </div>
+                    <% end %>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>

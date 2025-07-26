@@ -1,0 +1,50 @@
+<%= render 'layouts/shared/breadcrumb' %>
+<section class="section">
+  <div class="row">
+    <div class="col-lg-12">
+      <%= render partial: 'admin/event_sessions/partials/search_ticket_sessions' %>
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">All Attendance Sessions</h5>
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th scope="col">No</th>
+                <th scope="col">Ownership</th>
+                <th scope="col">User UID</th>
+                <th scope="col">Ticket ID</th>
+                <th scope="col">Attendee Name</th>
+                <th scope="col">In Time</th>
+                <th scope="col">Visitor ID In</th>
+                <th scope="col">Out Time</th>
+                <th scope="col">Visitor ID Out</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+              <% @ticket_sessions.each_with_index do |ticket_session, idx| %>
+                <% user = ticket_session.user %>
+                <% user_profile = user.user_profile %>
+                <tr>
+                  <th scope="row"><%= idx+1 %></th>
+                  <td><%= user_profile.full_name %></td>
+                  <td><%= user_profile.user_uid %></td>
+                  <td>#<%= ticket_session.ticket_id %></td>
+                  <td><%= ticket_session.ticket.attendee_name %></td>
+                  <td><%= datetime_formater(ticket_session.in_time) %></td>
+                  <td><%= ticket_session.visitor_id_in %></td>
+                  <td><%= datetime_formater(ticket_session.out_time) %></td>
+                  <td><%= ticket_session.visitor_id_out %></td>
+                  <td>
+                    <%= link_to "Scan Out", scan_out_ticket_session_admin_event_event_session_path(@event, @event_session, ticket_session),
+                        class: 'btn btn-info', data: { confirm: 'Are you sure?' } if ticket_session.out_time.blank? %>
+                  </td>
+                </tr>
+              <% end %>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

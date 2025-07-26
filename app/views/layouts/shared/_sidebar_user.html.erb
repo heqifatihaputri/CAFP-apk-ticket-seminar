@@ -1,0 +1,23 @@
+<aside id="sidebar" class="sidebar">
+  <% con_param = params[:controller] %>
+  <ul class="sidebar-nav" id="sidebar-nav">
+    <li class="nav-item">
+      <%= link_to user_events_path, class: class_active(con_param, 'user/events') do %>
+        <i class="bi bi-grid"></i>
+        <span>Events</span>
+      <% end %>
+    </li>
+    <li class="nav-item">
+      <%= link_to user_orders_path, class: class_active(con_param, 'user/orders')  do %>
+        <i class="bi bi-grid"></i>
+        <span>My Orders</span>
+      <% end %>
+    </li>
+    <li class="nav-item">
+      <%= link_to user_tickets_path, class: class_active(con_param, 'user/tickets')  do %>
+        <i class="bi bi-grid"></i>
+        <span>My Tickets</span>
+      <% end %>
+    </li>
+  </ul>
+</aside>

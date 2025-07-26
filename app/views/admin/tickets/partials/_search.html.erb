@@ -1,0 +1,37 @@
+<div class="card main-card">
+  <%= search_form_for @q, url: admin_event_tickets_path(@event), html: { method: :get } do |f| %>
+    <div class="card-body">
+    <h4 class="card-title">Advanced Search</h4>
+    <section class="p-0">
+      <div class="collapse show" id="advanceSearch">
+        <div class="row">
+          <div class="col-lg-4 col-12 mb-2">
+            <%= f.label :id_eq, 'Ticket ID' %>
+            <%= f.search_field :id_eq, class: 'form-control' %>
+          </div>
+          <div class="col-lg-4 col-12 mb-2">
+            <%= f.label :link_token_cont, 'Ticket Code' %>
+            <%= f.search_field :link_token_cont, class: 'form-control' %>
+          </div>
+          <div class="col-lg-4 col-12 mb-2">
+            <%= f.label :order_item_order_user_user_profile_user_uid_cont, 'Ownership UID' %>
+            <%= f.search_field :order_item_order_user_user_profile_user_uid_cont, class: 'form-control' %>
+          </div>
+          <div class="col-lg-4 col-12 mb-2">
+            <%= f.label :ownership_user_profile_full_name_cont, 'Ownership Name' %>
+            <%= f.search_field :ownership_user_profile_full_name_cont, class: 'form-control' %>
+          </div>
+          <div class="col-lg-4 col-12 mb-2">
+            <%= f.label :attendee_name_cont, 'Attendee Name' %>
+            <%= f.search_field :attendee_name_cont, class: 'form-control' %>
+          </div>
+        </div>
+    </section>
+    </div>
+    <div class="card-footer default">
+      <%= f.submit class: 'btn btn-primary' %>
+      <%= link_to "Reset", admin_event_tickets_path(@event), class: "btn btn-outline-primary mr-2" %>
+      <%= link_to "Back", admin_event_path(@event, tab: 'ticket-stock'), class: "btn btn-outline-primary mr-2" %>
+    </div>
+  <% end %>
+</div>

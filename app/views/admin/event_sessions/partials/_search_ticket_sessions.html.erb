@@ -1,0 +1,36 @@
+<div class="card main-card">
+  <%= search_form_for @q, url: all_ticket_sessions_admin_event_event_session_path(@event, @event_session),
+      html: { method: :get } do |f| %>
+    <div class="card-body">
+    <h4 class="card-title">Advanced Search</h4>
+    <section class="p-0">
+      <div class="collapse show" id="advanceSearch">
+        <div class="row">
+          <div class="col-lg-4 col-12 mb-2">
+            <%= f.label :ticket_id_eq, 'Ticket ID' %>
+            <%= f.search_field :ticket_id_eq, class: 'form-control' %>
+          </div>
+          <div class="col-lg-4 col-12 mb-2">
+            <%= f.label :user_user_profile_user_uid_cont, 'User UID' %>
+            <%= f.search_field :user_user_profile_user_uid_cont, class: 'form-control' %>
+          </div>
+          <div class="col-lg-4 col-12 mb-2">
+            <%= f.label :user_user_profile_full_name_cont, 'Ownership' %>
+            <%= f.search_field :user_user_profile_full_name_cont, class: 'form-control' %>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-lg-4 col-12 mb-2">
+            <%= f.label :ticket_attendee_name_cont, 'Attendee Name' %>
+            <%= f.search_field :ticket_attendee_name_cont, class: 'form-control' %>
+          </div>
+        </div>
+    </section>
+    </div>
+    <div class="card-footer default">
+      <%= f.submit class: 'btn btn-primary' %>
+      <%= link_to "Reset", all_ticket_sessions_admin_event_event_session_path, class: "btn btn-outline-primary mr-2" %>
+      <%= link_to "Back", admin_event_path(@event, tab: 'event-session'), class: "btn btn-outline-primary mr-2" %>
+    </div>
+  <% end %>
+</div>

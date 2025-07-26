@@ -1,0 +1,54 @@
+<%= render 'layouts/shared/breadcrumb' %>
+<section class="section event">
+  <div class="row">
+    <div class="col-xl-7">
+      <div class="card">
+        <div class="card-body event-card pt-4 d-flex flex-column align-items-center">
+          <% default_img = get_image_url(@event.images&.first, :medium) rescue nil %>
+          <%= image_tag(default_img, class: 'w-100 card-img-top') %>
+          <h2 class="mt-4"><%= @event.name %></h2>
+        </div>
+        <div class="card-body event-card pt-4 d-flex flex-column">
+          <%= @event.description.html_safe %>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-xl-5">
+      <div class="card">
+        <div class="card-body pt-3">
+          <div class="tab-content pt-2">
+            <div class="tab-pane fade show active event-overview" id="event-overview">
+              <h5 class="card-title" style="font-size: 24px!important;"><%= @event.name %></h5>
+              <!-- <p class="small"><%#= @event.date_period %></p> -->
+              <div class="row">
+                <div class="col-lg-3 col-md-4 label ">Date & Time</div>
+                <div class="col-lg-9 col-md-8"><%= @event.date_period %></div>
+              </div>
+              <div class="row">
+                <div class="col-lg-3 col-md-4 label">Location</div>
+                <div class="col-lg-9 col-md-8"><%= @event.venue_location %></div>
+              </div>
+              <div class="row">
+                <div class="col-lg-3 col-md-4 label">Speaker</div>
+                <div class="col-lg-9 col-md-8"><%= @event.speaker %></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <% if @ticket_stocks.blank? %>
+        <div class="card">
+        <div class="card-body pt-3">
+          <div class="tab-content pt-2">
+            <div class="tab-pane fade show active event-overview" id="event-overview">
+              <div>No available ticket!</div>
+            </div>
+          </div>
+        </div>
+      <% else %>
+        <%= render partial: 'user/events/partials/add_to_cart_form', locals: { cart_preview: @cart_preview, ticket_stocks: @ticket_stocks } %>
+      <% end %>
+    </div>
+  </div>
+</section>

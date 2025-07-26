@@ -1,0 +1,135 @@
+<%= form_with(model: current_user, url: user_my_profile_path(current_user),
+    method: :put, local: true) do |form| %>
+  <%= form.fields_for :user_profile do |user_profile| %>
+    <%= user_profile.hidden_field :id %>
+
+    <%= render partial: 'layouts/shared/error_messages', locals: { resource: current_user } %>
+
+    <h5><strong>Profile Infomation</strong></h5>
+    <div class="row">
+      <div class="col-sm-12 upload-preview">
+        <div class="image-col image-<%= @user_profile.id %> card-body event-card pt-4 d-flex flex-column align-items-center">
+          <% profile_img = get_avatar_url(@user_profile, :medium) %>
+          <%= image_tag(profile_img, class: 'w-25 card-img-top') %>
+          <div class="mt-4">
+            <%= user_profile.hidden_field :avatar, class: "upload-data" %>
+            <%= file_field_tag   :avatar, class: 'form-control-file upload-file' %>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row mb-3">
+      <%= form.label :email, 'Email<span class="text-danger">*</span>'.html_safe, class: "col-sm-2 col-form-label" %>
+      <div class="col-sm-10">
+        <%= form.email_field :email, class: 'form-control', required: true %>
+      </div>
+    </div>
+    <div class="row mb-3">
+      <%= user_profile.label :full_name, 'Full Name<span class="text-danger">*</span>'.html_safe, class: "col-sm-2 col-form-label" %>
+      <div class="col-sm-10">
+        <%= user_profile.text_field :full_name, class: 'form-control', required: true %>
+      </div>
+    </div>
+    <div class="row mb-3">
+      <%= user_profile.label :nric, 'No.KTP<span class="text-danger">*</span>'.html_safe, class: "col-sm-2 col-form-label" %>
+      <div class="col-sm-10">
+        <%= user_profile.text_field :nric, class: 'form-control field_number', required: true, maxlength: 16 %>
+      </div>
+    </div>
+    <div class="row mb-3">
+      <%= user_profile.label :dob, 'Date of Birthday<span class="text-danger">*</span>'.html_safe, class: "col-sm-2 col-form-label" %>
+      <div class="col-sm-10">
+        <%= user_profile.text_field :dob, class: 'form-control datepicker', placeholder: 'dd/mm/yyyy', value: datetime_formater(@user_profile.dob, '%d/%m/%Y'), autocomplete: :off, required: true %>
+      </div>
+    </div>
+    <div class="row mb-3">
+      <%= user_profile.label :gender, 'Gender <span class="text-danger">*</span>'.html_safe, class: "col-sm-2 col-form-label" %>
+      <div class="col-sm-10">
+        <%= user_profile.select :gender,
+            options_for_select(genders, @user_profile.gender),
+            {include_blank: 'Select Gender'}, class: 'form-select custom-select select2', required: true %>
+      </div>
+    </div>
+    <div class="row mb-3">
+      <%= user_profile.label :marital_status, 'Marital Status <span class="text-danger">*</span>'.html_safe, class: "col-sm-2 col-form-label" %>
+      <div class="col-sm-10">
+        <%= user_profile.select :marital_status,
+            options_for_select(marital_statuses, @user_profile.marital_status),
+            {include_blank: 'Select Marital Status'}, class: 'form-select custom-select select2', required: true %>
+      </div>
+    </div>
+    <div class="row mb-3">
+      <%= user_profile.label :company, 'Company<span class="text-danger">*</span>'.html_safe, class: "col-sm-2 col-form-label" %>
+      <div class="col-sm-10">
+        <%= user_profile.text_field :company, class: 'form-control', required: true %>
+      </div>
+    </div>
+    <div class="row mb-3">
+      <%= user_profile.label :job, 'Job<span class="text-danger">*</span>'.html_safe, class: "col-sm-2 col-form-label" %>
+      <div class="col-sm-10">
+        <%= user_profile.text_field :job, class: 'form-control', required: true %>
+      </div>
+    </div>
+    <div class="row mb-3">
+      <%= user_profile.label :mobile_phone, 'Mobile Number<span class="text-danger">*</span>'.html_safe, class: "col-sm-2 col-form-label" %>
+      <div class="col-sm-10">
+        <%= user_profile.text_field :mobile_phone, class: 'form-control field_number', required: true %>
+      </div>
+    </div>
+    <div class="row mb-3">
+      <%= user_profile.label :home_number, 'Home Number', class: "col-sm-2 col-form-label" %>
+      <div class="col-sm-10">
+        <%= user_profile.text_field :home_number, class: 'form-control field_number', maxlength: 13 %>
+      </div>
+    </div>
+    <div class="row mb-3">
+      <%= user_profile.label :facebook, 'Facebook', class: "col-sm-2 col-form-label", maxlength: 11 %>
+      <div class="col-sm-10">
+        <%= user_profile.text_field :facebook, class: 'form-control' %>
+      </div>
+    </div>
+    <div class="row mb-3">
+      <%= user_profile.label :instagram, 'Instagram', class: "col-sm-2 col-form-label" %>
+      <div class="col-sm-10">
+        <%= user_profile.text_field :instagram, class: 'form-control' %>
+      </div>
+    </div>
+    <div class="row mb-3">
+      <%= user_profile.label :linkedin, 'Linkedin', class: "col-sm-2 col-form-label" %>
+      <div class="col-sm-10">
+        <%= user_profile.text_field :linkedin, class: 'form-control' %>
+      </div>
+    </div>
+
+    <h5 class="mt-4"><strong>Address</strong></h5>
+    <div class="row mb-3">
+      <%= user_profile.label :address, 'Full Address<span class="text-danger">*</span>'.html_safe, class: "col-sm-2 col-form-label" %>
+      <div class="col-sm-10">
+        <%= user_profile.text_area :address, class: 'form-control', required: true %>
+      </div>
+    </div>
+    <div class="row mb-3">
+      <%= user_profile.label :country_id, 'Country <span class="text-danger">*</span>'.html_safe, class: "col-sm-2 col-form-label" %>
+      <div class="col-sm-10">
+        <%= user_profile.select :country_id,
+            options_for_select(countries, @user_profile.country_id),
+            {include_blank: 'Select Country'}, class: 'form-select custom-select select2', required: true %>
+      </div>
+    </div>
+    <div class="row mb-3">
+      <%= user_profile.label :city, 'City<span class="text-danger">*</span>'.html_safe, class: "col-sm-2 col-form-label" %>
+      <div class="col-sm-10">
+        <%= user_profile.text_field :city, class: 'form-control', required: true %>
+      </div>
+    </div>
+    <div class="row mb-3">
+      <%= user_profile.label :postcode, 'Postcode<span class="text-danger">*</span>'.html_safe, class: "col-sm-2 col-form-label" %>
+      <div class="col-sm-10">
+        <%= user_profile.number_field :postcode, class: 'form-control', required: true %>
+      </div>
+    </div>
+    <div class="card-footer text-right">
+      <%= form.submit "Submit", class: 'btn btn-success', id: 'button-form-user' %>
+    </div>
+  <% end %>
+<% end %>

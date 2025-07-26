@@ -1,0 +1,91 @@
+<aside id="sidebar" class="sidebar">
+  <% con_param = params[:controller] %>
+  <ul class="sidebar-nav" id="sidebar-nav">
+    <li class="nav-item">
+      <%= link_to admin_root_path, class: class_active(con_param, 'dashboard') do %>
+        <i class="bi bi-grid"></i>
+        <span>Dashboard</span>
+      <% end %>
+    </li>
+    <li class="nav-item">
+      <%= link_to admin_users_path, class: class_active(con_param, 'admin/users') do %>
+        <i class="bi bi-grid"></i>
+        <span>Users</span>
+      <% end %>
+    </li>
+    <li class="nav-item">
+      <%= link_to admin_venues_path, class: class_active(con_param, 'admin/venues') do %>
+        <i class="bi bi-grid"></i>
+        <span>Venues</span>
+      <% end %>
+    </li>
+    <li class="nav-item">
+      <%= link_to admin_events_path, class: class_active(con_param, 'admin/events') do %>
+        <i class="bi bi-grid"></i>
+        <span>Events</span>
+      <% end %> 
+    </li>
+    <li class="nav-item">
+      <%= link_to admin_orders_path, class: class_active(con_param, 'admin/orders') do %>
+        <i class="bi bi-grid"></i>
+        <span>Orders</span>
+      <% end %> 
+    </li>
+    <li class="nav-item">
+      <%= link_to admin_reportings_path, class: class_active(con_param, 'admin/reportings') do %>
+        <i class="bi bi-grid"></i>
+        <span>Reportings</span>
+      <% end %> 
+    </li>
+<!--     <li class="nav-heading">Pages</li>
+
+    <li class="nav-item">
+      <a class="nav-link collapsed" href="users-profile.html">
+        <i class="bi bi-person"></i>
+        <span>Profile</span>
+      </a>
+    </li>
+
+    <li class="nav-item">
+      <a class="nav-link collapsed" href="pages-faq.html">
+        <i class="bi bi-question-circle"></i>
+        <span>F.A.Q</span>
+      </a>
+    </li>
+
+    <li class="nav-item">
+      <a class="nav-link collapsed" href="pages-contact.html">
+        <i class="bi bi-envelope"></i>
+        <span>Contact</span>
+      </a>
+    </li>
+
+    <li class="nav-item">
+      <a class="nav-link collapsed" href="pages-register.html">
+        <i class="bi bi-card-list"></i>
+        <span>Register</span>
+      </a>
+    </li>
+
+    <li class="nav-item">
+      <a class="nav-link collapsed" href="pages-login.html">
+        <i class="bi bi-box-arrow-in-right"></i>
+        <span>Login</span>
+      </a>
+    </li>
+
+    <li class="nav-item">
+      <a class="nav-link collapsed" href="pages-error-404.html">
+        <i class="bi bi-dash-circle"></i>
+        <span>Error 404</span>
+      </a>
+    </li>
+
+    <li class="nav-item">
+      <a class="nav-link collapsed" href="pages-blank.html">
+        <i class="bi bi-file-earmark"></i>
+        <span>Blank</span>
+      </a>
+    </li> -->
+  </ul>
+</aside><!-- End Sidebar-->

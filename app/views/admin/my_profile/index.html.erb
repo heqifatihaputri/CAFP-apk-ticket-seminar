@@ -1,0 +1,32 @@
+<%= render 'layouts/shared/breadcrumb' %>
+<section class="section">
+  <div class="row">
+    <div class="col-lg-12">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">Update Profile</h5>
+          <%= form_with(model: current_admin, url: admin_my_profile_path(current_admin),
+              method: :put, local: true) do |form| %>
+            <%= render partial: 'layouts/shared/error_messages', locals: { resource: current_admin } %>
+
+            <div class="row mb-3">
+              <%= form.label :email, 'Email <span class="text-danger">*</span>'.html_safe, class: "col-sm-2 col-form-label" %>
+              <div class="col-sm-10">
+                <%= form.text_field :email, class: 'form-control', required: true %>
+              </div>
+            </div>
+            <div class="row mb-3">
+              <%= form.label :name, 'Name <span class="text-danger">*</span>'.html_safe, class: "col-sm-2 col-form-label" %>
+              <div class="col-sm-10">
+                <%= form.text_field :name, class: 'form-control', required: true %>
+              </div>
+            </div>
+            <div class="card-footer text-right">
+              <%= form.submit "Submit", class: 'btn btn-success', id: 'button-submit' %>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

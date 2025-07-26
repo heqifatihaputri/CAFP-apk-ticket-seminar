@@ -1,0 +1,39 @@
+<%= form_with model: cart_preview, url: add_to_cart_user_carts_path, method: :post, local: true, id: 'add-cart-item' do |f| %>
+  <% @ticket_stocks.each do |ticket_stock| %>
+    <%= f.fields_for :cart_items, CartItem.new do |form| %>
+      <%= form.hidden_field :ticket_stock_id, value: ticket_stock.id %>
+      <%= form.hidden_field :event_id, value: ticket_stock.event_id %>
+      <div class="card">
+        <div class="card-body pt-3">
+          <div class="tab-content pt-2">
+            <div class="tab-pane fade show active profile-overview" id="profile-overview">
+              <h5 class="card-title"><%= ticket_stock.name %></h5>
+              <!-- <p class="small" style="font-weight: bold;"><%#= number_to_currency(ticket_stock.price, unit: 'Rp ') %></p> -->
+              <div class="row">
+                <div class="col-lg-3 col-md-4 label">Price</div>
+                <div class="col-lg-9 col-md-8"><b><%= number_to_currency(ticket_stock.price, unit: 'Rp ') %></b></div>
+              </div>
+              <div class="row">
+                <div class="col-lg-3 col-md-4 label ">SKU</div>
+                <div class="col-lg-9 col-md-8"><%= ticket_stock.sku %></div>
+              </div>
+              <div class="row">
+                <div class="col-lg-12 col-md-4 label">You already own 0 ticket</div>
+              </div>
+              <div class="row">
+                <div class="col-lg-4 col-md-6 label ">
+                  <% if ticket_stock.try(:quantity).to_i.zero? || !ticket_stock.try(:active?) %>
+                    <%= text_field_tag :quantity, 0, class: 'form-control item-quantity', disabled: true %>
+                  <% else %>
+                    <%= form.number_field :quantity, class: 'form-control item-quantity', value: 0, min: 0, max: ticket_stock.try(:quantity), data: {id: ticket_stock.id} %>
+                  <% end %>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  <% end %>
+  <button type="submit", class="event-detail__tickets-checkout btn btn-primary w-100">Add To Cart</button>
+<% end %>

@@ -1,0 +1,127 @@
+<div class="pagetitle">
+  <h1>Dashboard</h1>
+</div>
+<section class="section dashboard">
+  <div class="row">
+    <div class="col-lg-12">
+      <div class="row">
+        <div class="col-xxl-4 col-md-6">
+          <div class="card info-card sales-card">
+            <div class="card-body">
+              <h5 class="card-title">Sales <span>| This Month</span></h5>
+              <div class="d-flex align-items-center">
+                <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                  <%= image_tag "cart.png", class: "auth-header__logo", width: "30px" %>
+                </div>
+                <div class="ps-3">
+                  <h6><%= @current_sales.count %></h6>
+                  <% if @sales_increase.present? %>
+                    <span class="text-success small pt-1 fw-bold"><%= @sales_increase %></span> <span class="text-muted small pt-2 ps-1">increase</span>
+                  <% end %>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-xxl-4 col-md-6">
+          <div class="card info-card revenue-card">
+            <div class="card-body">
+              <h5 class="card-title">Revenue <span>| This Month</span></h5>
+              <div class="d-flex align-items-center">
+                <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                  <%= image_tag "indonesian-rupiah.png", class: "auth-header__logo", width: "30px" %>
+                </div>
+                <div class="ps-3">
+                  <p class="font-weight-bold"><%=  money_format(@current_revenue) %></p>
+                  <% if @revenue_increase.present? %>
+                    <span class="text-success small pt-1 fw-bold"><%= @revenue_increase %></span> <span class="text-muted small pt-2 ps-1">increase</span>
+                  <% end %>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+        <div class="col-xxl-4 col-xl-12">
+          <div class="card info-card customers-card">
+            <div class="card-body">
+              <h5 class="card-title">New User <span>| This Year</span></h5>
+              <div class="d-flex align-items-center">
+                <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                  <%= image_tag "users.png", class: "auth-header__logo", width: "30px" %>
+                </div>
+                <div class="ps-3">
+                  <h6><%= @current_registered.count %></h6>
+                  <% if @registered_increase.present? %>
+                    <span class="text-danger small pt-1 fw-bold"><%= @registered_increase %>%</span> <span class="text-muted small pt-2 ps-1">decrease</span>
+                  <% end %>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-12">
+          <div class="card recent-sales overflow-auto">
+            <div class="card-body">
+              <h5 class="card-title">Recent Sales <span>| This Month</span></h5>
+              <table class="table table-borderless datatable">
+                <thead>
+                  <tr>
+                    <th scope="col">Invoice ID</th>
+                    <th scope="col">Recipient Name</th>
+                    <th scope="col">Ticket Name</th>
+                    <th scope="col">Payment Amount</th>
+                    <th scope="col">Payment Date</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <% @current_sales.each do |invoice| %>
+                    <tr>
+                      <th scope="row">
+                        <%= link_to "##{invoice.invoice_uid}", admin_order_path(invoice.order), target: '_blank' %>
+                      </th>
+                      <td><%= invoice.user.user_profile.full_name %></td>
+                      <td><%= invoice.order.order_items.map{|odr| odr.product_details[:ticket_name]}.join(", ") %></td>
+                      <td><%= money_format(invoice.total) %></td>
+                      <td><%= date_formater(invoice.paydate) %></span></td>
+                    </tr>
+                  <% end %>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+        <div class="col-12">
+          <div class="card top-selling overflow-auto">
+            <div class="card-body pb-0">
+              <h5 class="card-title">Top Selling <span>| This Month</span></h5>
+              <table class="table table-borderless">
+                <thead>
+                  <tr>
+                    <th scope="col">Ticket Name</th>
+                    <th scope="col">Event Name</th>
+                    <th scope="col">Price</th>
+                    <th scope="col">Total Sold (All The Time)</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <% @top_selling.each do |ticket_stock| %>
+                    <tr>
+                      <th scope="row"><%= ticket_stock.name %></th>
+                      <td><%= ticket_stock.event.name %></td>
+                      <td><%= money_format(ticket_stock.price) %></td>
+                      <td class="fw-bold"><%= ticket_stock.sold_quantity %></td>
+                    </tr>
+                  <% end %>
+                </tbody>
+              </table>
+
+            </div>
+
+          </div>
+        </div><!-- End Top Selling -->
+
+      </div>
+    </div><!-- End Left side columns -->
+  </div>
+</section>

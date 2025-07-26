@@ -1,0 +1,73 @@
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+<div class="physical-ticket w-100">
+  <div class="physical-ticket__item w-25 m-auto">
+    <div class="physical-ticket__title-qrcode text-center mb-3">
+      <h4 class="font-weight-bolder">Show this QR code to scan your attendance!</h4>
+    </div>
+    <div class="physical-ticket__event-info w-100 bg-info rounded mb-3">
+      <p class="text-center text-white">Event info</p>
+    </div>
+    <div class="physical-ticket__qrcode-wrap bg-white rounded shadow-sm">
+      <div class="physical-ticket__qrcode mb-3">
+        <div id="ticket-id" data-ticket-id="<%= @ticket.id %>"></div>
+        <div id="qrcode"></div>
+      </div>
+      <% last_ticket_session  = @ticket.last_ticket_session %>
+      <div id="param-refresh" data-param-refresh="<%= params[:refresh] %>"></div>
+      <div class="alert-wrapper hide">
+        <div class="physical-ticket__alert px-2">
+          <div class="ticket-alert-label alert-dismissible fade show" role="alert">
+            <button type="button" class="btn-close" data-dismiss="alert" aria-label="Close" data-bs-dismiss="alert"><span aria-hidden="true"></span></button>
+            <div id="error_explanation">
+              <p class="ticket-alert-text"></p>
+            </div>
+          </div>
+        </div>
+        <div class="physical-ticket__title mb-3 failed-reason" style="padding-left: 10px;"></div>
+      </div>
+      <div class="physical-ticket__title text-center mb-3">
+        <h4 class="font-weight-bolder"><%= @event.name %></h4>
+        <h6><%= @event.date_period %></h6>
+        <h6><%= @event.venue&.name %></h6>
+        <h6 class="mb-3 font-weight-bolder"><%= @event_session&.title %></h6>
+        <h6><%= @ticket.attendee_name %></h6>
+        <%= link_to 'Refresh', scan_physical_ticket_path(@ticket.event, @ticket.link_token, refresh: true), class: 'btn btn-primary mt-2' %>
+      </div>
+      <% scan_in = @last_visitor_sesion.blank? ? 'empty' : 'checked bg-success' %>
+      <div class="physical-ticket__status-<%= scan_in %> w-100 text-center mb-3">
+        <p class="text-white font-weight-bold">Ticket No: <%= @ticket.id %></p>
+        <% if last_ticket_session.present? %>
+          <p class="text-white font-weight-bold">Last Scan In: <%= date_formater(last_ticket_session.in_time, '%d/%m/%Y %I:%M %p') %></p>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
+
+<% content_for :custom_js_tag do %>
+<script>
+  $(document).ready(function() {
+    var ticketId = $('#ticket-id').attr('data-ticket-id');
+    var refresh  = $('#param-refresh').attr('data-param-refresh');
+
+    const fpPromise = import('https://openfpcdn.io/fingerprintjs/v3')
+      .then(FingerprintJS => FingerprintJS.load())
+
+    // Get the visitor identifier when you need it.
+    fpPromise
+      .then(fp => fp.get())
+      .then(result => {
+        // This is the visitor identifier:
+        visitorId = result.visitorId
+        console.log(ticketId)
+        console.log(visitorId)
+        callCreateQrCode(ticketId, visitorId);
+        callTicketAlert(ticketId, visitorId, refresh);
+        var btoa_title_qrcode = btoa($('#qrcode').attr('title'))
+        $('#qrcode').attr('title', btoa_title_qrcode)
+      })
+      .catch(error => console.error(error))
+
+  });
+</script>
+<% end %>

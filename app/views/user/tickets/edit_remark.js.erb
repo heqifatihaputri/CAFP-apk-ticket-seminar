@@ -1,0 +1,4 @@
+$("#modals").html("<%= j (render partial: 'user/tickets/partials/edit_ticket_info', locals: {ticket: @ticket}) %>");
+$("#editTicketInfo").modal('show');
+
+callCopyTicketLink();

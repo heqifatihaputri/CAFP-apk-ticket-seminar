@@ -1,0 +1,29 @@
+<div class="card main-card">
+  <%= search_form_for @q, url: admin_events_path, html: { method: :get } do |f| %>
+    <div class="card-body">
+    <h4 class="card-title">Advanced Search</h4>
+    <section class="p-0">
+      <div class="collapse show" id="advanceSearch">
+        <div class="row">
+          <div class="col-lg-4 col-12 mb-2">
+            <div id="hidden-search-daterange" data-value="<%= params[:date_range] %>"></div>
+            <%= label_tag :date_range, 'Start Time' %>
+            <%= text_field_tag :date_range, params[:date_range], class: 'form-control daterange', id: 'input-search-date-range', autocomplete: :off, placeholder: 'dd/mm/yy - dd/mm/yy' %>
+          </div>
+          <div class="col-lg-4 col-12 mb-2">
+            <%= f.label :name_cont, 'Name' %>
+            <%= f.search_field :name_cont, class: 'form-control' %>
+          </div>
+          <div class="col-lg-4 col-12 mb-2">
+            <%= f.label :venue_id_eq, 'Venue' %>
+            <%= f.select :venue_id_eq, options_for_select(@venues, params[:q][:venue_id_eq]), { include_blank: 'Select Venue' }, class: "form-control" %>
+          </div>
+        </div>
+    </section>
+    </div>
+    <div class="card-footer default">
+      <%= f.submit class: 'btn btn-primary' %>
+      <a class="btn btn-outline-primary mr-2" href="/admin/events">Reset</a>
+    </div>
+  <% end %>
+</div>

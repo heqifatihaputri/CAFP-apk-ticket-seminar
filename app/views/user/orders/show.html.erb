@@ -1,0 +1,62 @@
+<%= render 'layouts/shared/breadcrumb' %>
+<section class="section profile">
+  <div class="row">
+    <div class="col-xl-12">
+      <div class="card">
+        <div class="card-body pt-3">
+          <!-- Bordered Tabs -->
+          <ul class="nav nav-tabs nav-tabs-bordered">
+            <li class="nav-item">
+              <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#order-overview">Details</button>
+            </li>
+          </ul>
+          <div class="tab-content pt-2">
+            <div class="tab-pane fade show active profile-overview" id="order-overview">
+              <h4 class="card-title">Order #<%= @order.id %></h4>
+              <div class="row">
+                <div class="col-lg-3 col-md-4 label">Payment Date</div>
+                <div class="col-lg-9 col-md-8"><%= date_formater(@invoice.paydate, '%d/%m/%Y %I:%M %p') %></div>
+              </div>
+              <% @order_items.each do |item| %>
+                <% ticket_stock = item.ticket_stock %>
+                <h5 class="card-title"><%= ticket_stock.event.name %></h5>
+                <div class="row">
+                  <div class="col-lg-3 col-md-4 label">Ticket name</div>
+                  <div class="col-lg-9 col-md-8"><%= ticket_stock.name %></div>
+                </div>
+                <div class="row">
+                  <div class="col-lg-3 col-md-4 label">Event Date</div>
+                  <div class="col-lg-9 col-md-8"><%= ticket_stock.event.date_period %></div>
+                </div>
+                <div class="row">
+                  <div class="col-lg-3 col-md-4 label ">Quantity</div>
+                  <div class="col-lg-9 col-md-8"><%= item.quantity %></div>
+                </div>
+                <div class="row">
+                  <div class="col-lg-3 col-md-4 label">Price</div>
+                  <div class="col-lg-9 col-md-8"><%= money_format(item.price) %></div>
+                </div>
+                <div class="row">
+                  <div class="col-lg-3 col-md-4 label">Item Total</div>
+                  <div class="col-lg-9 col-md-8">
+                    <% total = item.price * item.quantity %>
+                    <%= money_format(total) %>
+                  </div>
+                </div>
+              <% end %>
+              <h5 class="card-title">Billing Details</h5>
+              <div class="row">
+                <div class="col-lg-3 col-md-4 label">Total</div>
+                <div class="col-lg-9 col-md-8"><%= money_format(@order.total) %></div>
+              </div>
+              <div class="row">
+                <div class="col-lg-3 col-md-4 label">Payment With</div>
+                <div class="col-lg-9 col-md-8"><%= payment_status(@invoice) %></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

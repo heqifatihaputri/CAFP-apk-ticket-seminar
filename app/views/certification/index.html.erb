@@ -1,0 +1,317 @@
+<style type="text/css">
+  @import url('https://fonts.googleapis.com/css?family=Open+Sans|Pinyon+Script|Rochester');
+
+  .cursive {
+    font-family: 'Pinyon Script', cursive;
+  }
+
+  .sans {
+    font-family: 'Open Sans', sans-serif;
+  }
+
+  .bold {
+    font-weight: bold;
+  }
+
+  .block {
+    display: block;
+  }
+
+  .font-title {
+    font-family: -webkit-body;
+  }
+
+  .underline {
+    border-bottom: 1px solid #777;
+    padding: 5px;
+    margin-bottom: 15px;
+  }
+
+  .margin-0 {
+    margin: 0;
+  }
+
+  .padding-0 {
+    padding: 0;
+  }
+
+  .pm-empty-space {
+    height: 40px;
+    width: 90%;
+  }
+
+/*  body {
+    padding: 20px 0;
+    background: #ccc;
+  }
+
+  * {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+  }*/
+
+  .wrapper-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .container {
+    padding-right: 15px;
+    padding-left: 15px;
+    margin-right: auto;
+    margin-left: auto;
+  }
+
+  .outer-border {
+    width: 794px;
+    height: 594px;
+    position: absolute;
+    left: 50%;
+    margin-left: -397px;
+    top: 50%;
+    margin-top:-297px;
+    border: 2px solid #fff;
+  }
+  
+  .inner-border {
+    width: 730px;
+    height: 530px;
+    position: absolute;
+    left: 50%;
+    margin-left: -365px;
+    top: 50%;
+    margin-top:-265px;
+    border: 2px solid #fff;
+  }
+
+  .pm-certificate-container {
+    margin: 0 auto !important;
+    position: relative;
+    width: 800px;
+    height: 600px;
+    background-color: #618597;
+    padding: 30px;
+    color: #333;
+    font-family: 'Open Sans', sans-serif;
+    box-shadow: 0 0 5px rgba(0, 0, 0, .5);
+    background: -webkit-repeating-linear-gradient(
+      45deg,
+      #618597,
+      #618597 1px,
+      #b2cad6 1px,
+      #b2cad6 2px
+    );
+    background: repeating-linear-gradient(
+      90deg,
+      #618597,
+      #618597 1px,
+      #b2cad6 1px,
+      #b2cad6 2px
+    );
+    }
+
+    .pm-certificate-border {
+      position: relative;
+      width: 720px;
+      height: 520px;
+      padding: 0;
+      border: 1px solid #E1E5F0;
+      background-color: rgba(255, 255, 255, 1);
+      background-image: none;
+      left: 50%;
+      margin-left: -360px;
+      top: 50%;
+      margin-top: -260px;
+
+      .pm-certificate-block {
+        width: 650px;
+        height: 200px;
+        position: relative;
+        left: 50%;
+        margin-left: -325px;
+        top: 70px;
+        margin-top: 0;
+      }
+    }
+
+    .pm-certificate-header {
+      margin-bottom: 10px;
+    }
+
+    .pm-certificate-title {
+      position: relative;
+      top: 40px;
+
+      h2 {
+        font-size: 34px !important;
+      }
+    }
+
+    .pm-certificate-body {
+      padding: 20px;
+
+      .pm-name-text {
+        font-size: 20px;
+        font-family: -webkit-body;
+      }
+    }
+
+    .pm-earned {
+      margin: 15px 0 20px;
+      .pm-earned-text {
+        font-size: 20px;
+      }
+      .pm-credits-text {
+        font-size: 15px;
+      }
+    }
+
+    .pm-course-title {
+      .pm-earned-text {
+        font-size: 20px;
+      }
+      .pm-credits-text {
+        font-size: 15px;
+      }
+    }
+
+    .pm-certified {
+      font-size: 12px;
+
+      .underline {
+        margin-bottom: 5px;
+      }
+    }
+
+    .pm-certificate-footer {
+      width: 650px;
+      height: 100px;
+      position: relative;
+      left: 50%;
+      margin-left: -325px;
+      bottom: -105px;
+    }
+
+    /* Print Styles */
+    @media print {
+      * {
+          -webkit-print-color-adjust: exact !important;   /* Chrome, Safari 6 – 15.3, Edge */
+          color-adjust: exact !important;                 /* Firefox 48 – 96 */
+          print-color-adjust: exact !important;           /* Firefox 97+, Safari 15.4+ */
+      }
+
+      .print {
+        height: 100vh;
+        display: flex;
+        align-items: center;
+      }
+    /*  Hide everything that doesn't have the '.print' class */
+      /*body > *:not(.print){
+        display: none;
+      }*/
+      .btn-print {
+        display: none;
+      }
+
+      
+    /*  Give the cards fixed dimensions  */
+      /*.container {
+        width: 85.5mm;
+        height: 55mm;
+      }
+      */
+    /*  Remove the header and footer text and urls the browser places  */
+      @page {
+        /*size: landscape;*/
+        margin: 0;
+        size:  a4 landscape;
+      }
+      
+    }
+
+</style>
+<div class="print">
+  <div class="pm-certificate-container mt-4">
+    <div class="outer-border"></div>
+    <div class="inner-border"></div>
+    
+    <div class="pm-certificate-border col-xs-12">
+      <div class="row pm-certificate-header">
+        <div class="pm-certificate-title cursive col-xs-12 text-center">
+          <h2 class="font-title">TQG IND Certificate of Completion</h2>
+          <h4 class="font-title">This certificate is proudly presents to</h4>
+        </div>
+      </div>
+
+      <div class="row pm-certificate-body">
+        
+        <div class="pm-certificate-block">
+            <div class="col-xs-12">
+              <div class="row">
+                <div class="col-xs-2"><!-- LEAVE EMPTY --></div>
+                <div class="pm-certificate-name underline margin-0 col-xs-8 text-center">
+                  <h2 class="pm-name-text bold"><%= @name %></h2>
+                </div>
+                <div class="col-xs-2"><!-- LEAVE EMPTY --></div>
+              </div>
+            </div>          
+
+            <div class="col-xs-12">
+              <div class="row">
+                <div class="col-xs-2"><!-- LEAVE EMPTY --></div>
+                <div class="pm-course-title col-xs-8 text-center mt-3">
+                  <span class="pm-earned-text block cursive">have been completed the seminar course entitled</span>
+                </div>
+                <div class="col-xs-2"><!-- LEAVE EMPTY --></div>
+              </div>
+            </div>
+
+            <div class="col-xs-12">
+              <div class="row">
+                <div class="col-xs-2"><!-- LEAVE EMPTY --></div>
+                <div class="pm-course-title underline col-xs-8 text-center">
+                  <h3 class="font-title pm-credits-text block bold sans"><%= @event.name.upcase %></h3>
+                </div>
+                <div class="col-xs-2"><!-- LEAVE EMPTY --></div>
+              </div>
+            </div>
+        </div>       
+        
+        <div class="col-xs-12">
+          <div class="row">
+            <div class="pm-certificate-footer wrapper-grid">
+              <div class="col-xs-4 pm-certified col-xs-4 text-center">
+                <span class="font-title pm-credits-text block sans">Directure</span>
+                <span class="pm-empty-space block underline"></span>
+                <span class="font-title bold block">KAI KAMAL</span>
+              </div>
+              <div class="col-xs-4 pm-certified col-xs-4 text-center">
+                <span class="font-title pm-credits-text block sans">Representatives</span>
+                <span class="pm-empty-space block underline"></span>
+                <!-- <span class="bold block">DOB: </span> -->
+                <span class="font-title bold block">BEN CHOI</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="text-center mt-4 btn-print">
+  <button id="cmd" class="btn btn-primary">generate PDF</button>
+</div>
+
+<% content_for :custom_js_tag do %>
+  <script>
+    $(document).ready(function(){
+      // const button = document.querySelector('a');
+      // button.addEventListener('click', () => {window.print()});
+
+      $("#cmd").click(function(){
+        window.print();
+      });
+    });
+  </script>
+<% end %>

@@ -1,0 +1,18 @@
+<%= render 'layouts/shared/breadcrumb' %>
+<section class="section">
+  <div class="row">
+    <div class="col-lg-12">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">New User</h5>
+          <%= render partial: "admin/users/partials/form",locals:
+              { user: @user,
+                genders: @genders,
+                marital_statuses: @marital_statuses,
+                countries: @countries,
+                url: admin_users_path } %>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

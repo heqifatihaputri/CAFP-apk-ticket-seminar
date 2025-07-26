@@ -1,0 +1,50 @@
+.event .event-card img {
+  max-width: 650px;
+}
+
+.event .event-card h2 {
+  font-size: 24px;
+  font-weight: 700;
+  color: #2c384e;
+  margin: 10px 0 0 0;
+}
+
+.event .event-card h3 {
+  font-size: 18px;
+}
+
+.event .event-card .social-links a {
+  font-size: 20px;
+  display: inline-block;
+  color: rgba(1, 41, 112, 0.5);
+  line-height: 0;
+  margin-right: 10px;
+  transition: 0.3s;
+}
+
+.event .event-card .social-links a:hover {
+  color: #012970;
+}
+
+.event .event-overview .row {
+  margin-bottom: 20px;
+  font-size: 15px;
+}
+
+.event .event-overview .card-title {
+  color: #012970;
+}
+
+.event .event-overview .label {
+  font-weight: 600;
+  color: rgba(1, 41, 112, 0.6);
+}
+
+.event .event-edit label {
+  font-weight: 600;
+  color: rgba(1, 41, 112, 0.6);
+}
+
+.event .event-edit img {
+  max-width: 120px;
+}
